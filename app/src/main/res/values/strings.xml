@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ParkingSystem</string>
+    <string name="size_instructions">Enter size of parking</string>
 </resources>
