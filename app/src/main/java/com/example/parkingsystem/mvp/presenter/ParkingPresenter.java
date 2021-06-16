@@ -14,8 +14,7 @@ public class ParkingPresenter {
     }
 
     public void onParkingSizeCreationButtonPressed(){
-        int size = parkingView.getSizeSubmitted();
-        parking.setParkingSize(size);
-        parkingView.setSize(String.valueOf(parking.getParkingSize()));
+        parking.setParkingSize(parkingView.getSizeSubmitted());
+        parkingView.showParkingSize(parking.getParkingSize());
     }
 }
