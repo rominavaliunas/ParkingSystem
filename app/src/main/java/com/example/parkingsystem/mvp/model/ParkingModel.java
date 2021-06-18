@@ -2,12 +2,12 @@ package com.example.parkingsystem.mvp.model;
 
 import java.util.ArrayList;
 
-public class Parking {
+public class ParkingModel {
 
     private int parkingSize;
     private ArrayList<ParkingLot> parkingLots;
 
-    public Parking (){
+    public ParkingModel(){
         this.parkingLots = new ArrayList<>();
     }
 
@@ -15,9 +15,8 @@ public class Parking {
         return this.parkingSize;
     }
 
-    public void setParkingSize (int size){
-        this.parkingSize = size;
+    public void setParkingSize (String size) throws NumberFormatException{
+        this.parkingSize = Integer.parseInt(size);
     }
-
 
 }

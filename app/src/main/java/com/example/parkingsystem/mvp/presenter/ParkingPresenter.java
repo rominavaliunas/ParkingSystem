@@ -1,20 +1,28 @@
 package com.example.parkingsystem.mvp.presenter;
 
-import com.example.parkingsystem.mvp.model.Parking;
+import android.util.Log;
+
+import com.example.parkingsystem.mvp.model.ParkingModel;
 import com.example.parkingsystem.mvp.view.ParkingView;
 
 public class ParkingPresenter {
 
-    private Parking parking;
+    private ParkingModel parkingModel;
     private ParkingView parkingView;
 
-    public ParkingPresenter (Parking newParking, ParkingView newParkingView){
-        this.parking = newParking;
+    public ParkingPresenter (ParkingModel newParkingModel, ParkingView newParkingView){
+        this.parkingModel = newParkingModel;
         this.parkingView = newParkingView;
     }
 
     public void onParkingSizeCreationButtonPressed(){
-        parking.setParkingSize(parkingView.getSizeSubmitted());
-        parkingView.showParkingSize(parking.getParkingSize());
+        try{
+            parkingModel.setParkingSize(parkingView.getSizeSubmitted());
+            parkingView.showParkingSize(parkingModel.getParkingSize());
+        }catch (NumberFormatException exception){
+            Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
+            parkingView.showInvalidSizeError();
+        }
+
     }
 }

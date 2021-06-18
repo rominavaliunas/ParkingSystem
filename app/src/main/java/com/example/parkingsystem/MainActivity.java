@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import com.example.parkingsystem.databinding.ActivityMainBinding;
-import com.example.parkingsystem.mvp.model.Parking;
+import com.example.parkingsystem.mvp.model.ParkingModel;
 import com.example.parkingsystem.mvp.presenter.ParkingPresenter;
 import com.example.parkingsystem.mvp.view.ParkingView;
 
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        presenter = new ParkingPresenter(new Parking(), new ParkingView(this, binding));
+        presenter = new ParkingPresenter(new ParkingModel(), new ParkingView(this, binding));
 
         setListeners();
     }

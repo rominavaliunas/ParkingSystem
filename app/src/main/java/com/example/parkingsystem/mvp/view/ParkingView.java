@@ -18,13 +18,9 @@ public class ParkingView extends ActivityView {
         this.binding = binding;
     }
 
-    public int getSizeSubmitted(){
-        int size=0;
-        try{
-            size = Integer.parseInt(binding.quantityParkingLots.getText().toString());
-        }catch (NumberFormatException ex){
-            Log.e(ParkingView.class.getSimpleName(), ex.toString());
-        }
+    public String getSizeSubmitted(){
+        String size="";
+            size = binding.quantityParkingLots.getText().toString();
         return size;
     }
 
@@ -34,5 +30,9 @@ public class ParkingView extends ActivityView {
 
     public void showParkingSize(int size){
         showToast(getContext().getString(R.string.message_parking_size, String.valueOf(size)));
+    }
+
+    public void showInvalidSizeError(){
+        showToast(getContext().getString(R.string.error_message_number_format_exception));
     }
 }
