@@ -19,20 +19,25 @@ public class ParkingView extends ActivityView {
     }
 
     public String getSizeSubmitted(){
-        String size="";
-            size = binding.quantityParkingLots.getText().toString();
+        String size=binding.textParkingSizeQuantityLots.getText().toString();
         return size;
     }
 
     public void showToast(String text){
-        Toast.makeText(getContext(),text,Toast.LENGTH_LONG).show();
+        if (getContext() != null){
+            Toast.makeText(getContext(),text,Toast.LENGTH_LONG).show();
+        }
     }
 
     public void showParkingSize(int size){
-        showToast(getContext().getString(R.string.message_parking_size, String.valueOf(size)));
+        if (getContext() != null){
+            showToast(getContext().getString(R.string.parking_size_msg_quantity, String.valueOf(size)));
+        }
     }
 
     public void showInvalidSizeError(){
-        showToast(getContext().getString(R.string.error_message_number_format_exception));
+        if (getContext() != null){
+            showToast(getContext().getString(R.string.error_number_format_exception));
+        }
     }
 }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ParkingSystem</string>
-    <string name="size_instructions">Enter size of parking</string>
-    <string name="submit">Submit</string>
-    <string name="message_parking_size">The parking size is %s</string>
-    <string name="error_message_number_format_exception">Error the number you entered is not supported</string>
+    <string name="parking_size_instructions">Enter size of parking</string>
+    <string name="parking_size_submit">Submit</string>
+    <string name="parking_size_msg_quantity">The parking size is %s</string>
+    <string name="error_number_format_exception">Error the number you entered is not supported</string>
 </resources>

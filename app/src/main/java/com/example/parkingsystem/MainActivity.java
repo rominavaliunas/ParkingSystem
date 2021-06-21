@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListeners() {
-        binding.submitParkingLots.setOnClickListener(view -> presenter.onParkingSizeCreationButtonPressed());
+        binding.buttonParkingSizeSubmitParkingLots .setOnClickListener(view -> presenter.onParkingSizeCreationButtonPressed());
     }
 
 }
