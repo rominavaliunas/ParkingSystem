@@ -1,8 +1,9 @@
 package com.example.parkingsystem;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
 import com.example.parkingsystem.databinding.ActivityMainBinding;
 import com.example.parkingsystem.mvp.model.ParkingModel;
 import com.example.parkingsystem.mvp.presenter.ParkingPresenter;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListeners() {
-        binding.buttonParkingSizeSubmitParkingLots .setOnClickListener(view -> presenter.onParkingSizeCreationButtonPressed());
+        binding.buttonParkingSizeSubmitParkingLots.setOnClickListener(view -> presenter.onParkingSizeCreationButtonPressed());
     }
 
 }

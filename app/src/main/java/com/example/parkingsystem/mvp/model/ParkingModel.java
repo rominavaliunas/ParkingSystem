@@ -7,15 +7,15 @@ public class ParkingModel {
     private int parkingSize;
     private ArrayList<ParkingLot> parkingLots;
 
-    public ParkingModel(){
+    public ParkingModel() {
         this.parkingLots = new ArrayList<>();
     }
 
-    public int getParkingSize (){
+    public int getParkingSize() {
         return this.parkingSize;
     }
 
-    public void setParkingSize (String size) throws NumberFormatException{
+    public void setParkingSize(String size) throws NumberFormatException {
         this.parkingSize = Integer.parseInt(size);
     }
 
