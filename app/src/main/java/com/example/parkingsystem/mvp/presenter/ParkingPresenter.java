@@ -10,16 +10,16 @@ public class ParkingPresenter {
     private ParkingModel parkingModel;
     private ParkingView parkingView;
 
-    public ParkingPresenter (ParkingModel newParkingModel, ParkingView newParkingView){
+    public ParkingPresenter(ParkingModel newParkingModel, ParkingView newParkingView) {
         this.parkingModel = newParkingModel;
         this.parkingView = newParkingView;
     }
 
-    public void onParkingSizeCreationButtonPressed(){
-        try{
+    public void onParkingSizeCreationButtonPressed() {
+        try {
             parkingModel.setParkingSize(parkingView.getSizeSubmitted());
             parkingView.showParkingSize(parkingModel.getParkingSize());
-        }catch (NumberFormatException exception){
+        } catch (NumberFormatException exception) {
             Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
             parkingView.showInvalidSizeError();
         }
