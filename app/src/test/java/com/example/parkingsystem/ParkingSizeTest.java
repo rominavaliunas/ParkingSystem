@@ -33,7 +33,7 @@ public class ParkingSizeTest {
     }
 
     @Test
-    public void onParkingSizeCreationButtonPressed_validSize() {
+    public void onParkingSizeCreationButtonPressed_validSize_parkingCreated() {
         //Given
         when(view.getSizeSubmitted()).thenReturn("15");
         when(model.getParkingSize()).thenReturn(15);
@@ -45,7 +45,7 @@ public class ParkingSizeTest {
     }
 
     @Test
-    public void onParkingSizeCreationButtonPressed_invalidSize() {
+    public void onParkingSizeCreationButtonPressed_invalidSize_catchException() {
         //Given
         when(view.getSizeSubmitted()).thenReturn("999999999999999999");
         doThrow(new NumberFormatException()).when(model).setParkingSize("999999999999999999");
@@ -53,6 +53,16 @@ public class ParkingSizeTest {
         presenter.onParkingSizeCreationButtonPressed();
         //Then
         verify(view).showInvalidSizeError();
+    }
+
+    @Test
+    public void onParkingSizeCreationButtonPressed_invalidSize_noParkingWithZero() {
+        //Given
+        when(view.getSizeSubmitted()).thenReturn("0");
+        //When
+        presenter.onParkingSizeCreationButtonPressed();
+        //Then
+        verify(view).showInvalidNumber();
     }
 
     @After

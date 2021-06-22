@@ -17,8 +17,12 @@ public class ParkingPresenter {
 
     public void onParkingSizeCreationButtonPressed() {
         try {
-            parkingModel.setParkingSize(parkingView.getSizeSubmitted());
-            parkingView.showParkingSize(parkingModel.getParkingSize());
+            if ((Integer.parseInt(parkingView.getSizeSubmitted())) == 0) {
+                parkingView.showInvalidNumber();
+            } else {
+                parkingModel.setParkingSize(parkingView.getSizeSubmitted());
+                parkingView.showParkingSize(parkingModel.getParkingSize());
+            }
         } catch (NumberFormatException exception) {
             Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
             parkingView.showInvalidSizeError();
