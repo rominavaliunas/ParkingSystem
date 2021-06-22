@@ -59,6 +59,7 @@ public class ParkingSizeTest {
     public void onParkingSizeCreationButtonPressed_invalidSize_noParkingWithZero() {
         //Given
         when(view.getSizeSubmitted()).thenReturn("0");
+        doThrow(new IllegalArgumentException()).when(model).setParkingSize("0");
         //When
         presenter.onParkingSizeCreationButtonPressed();
         //Then

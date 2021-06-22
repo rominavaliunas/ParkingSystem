@@ -17,16 +17,16 @@ public class ParkingPresenter {
 
     public void onParkingSizeCreationButtonPressed() {
         try {
-            if ((Integer.parseInt(parkingView.getSizeSubmitted())) == 0) {
-                parkingView.showInvalidNumber();
-            } else {
-                parkingModel.setParkingSize(parkingView.getSizeSubmitted());
-                parkingView.showParkingSize(parkingModel.getParkingSize());
-            }
+            parkingModel.setParkingSize(parkingView.getSizeSubmitted());
+            parkingView.showParkingSize(parkingModel.getParkingSize());
         } catch (NumberFormatException exception) {
             Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
             parkingView.showInvalidSizeError();
+        } catch (IllegalArgumentException exception) {
+            Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
+            parkingView.showInvalidNumber();
         }
 
     }
+
 }
