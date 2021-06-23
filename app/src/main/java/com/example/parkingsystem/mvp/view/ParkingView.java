@@ -37,4 +37,10 @@ public class ParkingView extends ActivityView {
             showToast(getContext().getString(R.string.error_number_format_exception));
         }
     }
+
+    public void showInvalidNumber() {
+        if (getContext() != null) {
+            showToast(getContext().getString(R.string.error_invalid_number_logged));
+        }
+    }
 }

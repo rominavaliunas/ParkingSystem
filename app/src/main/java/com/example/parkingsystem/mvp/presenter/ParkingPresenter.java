@@ -22,7 +22,11 @@ public class ParkingPresenter {
         } catch (NumberFormatException exception) {
             Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
             parkingView.showInvalidSizeError();
+        } catch (IllegalArgumentException exception) {
+            Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
+            parkingView.showInvalidNumber();
         }
 
     }
+
 }

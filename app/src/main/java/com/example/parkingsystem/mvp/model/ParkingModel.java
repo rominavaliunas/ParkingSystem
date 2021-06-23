@@ -15,8 +15,11 @@ public class ParkingModel {
         return this.parkingSize;
     }
 
-    public void setParkingSize(String size) throws NumberFormatException {
+    public void setParkingSize(String size) throws IllegalArgumentException {
         this.parkingSize = Integer.parseInt(size);
+        if (parkingSize == 0) {
+            throw new IllegalArgumentException();
+        }
     }
 
 }
