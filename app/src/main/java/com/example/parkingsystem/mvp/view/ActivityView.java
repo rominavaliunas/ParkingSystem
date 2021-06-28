@@ -3,6 +3,7 @@ package com.example.parkingsystem.mvp.view;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -29,5 +30,12 @@ public class ActivityView {
     public FragmentManager getFragmentManager() {
         Activity activity = getActivity();
         return (activity != null) ? activity.getFragmentManager() : null;
+    }
+
+    @Nullable
+    public void showToast(String text) {
+        if (getContext() != null) {
+            Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+        }
     }
 }

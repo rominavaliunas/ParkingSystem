@@ -1,9 +1,10 @@
 package com.example.parkingsystem.mvp.view;
 
 import android.app.Activity;
-import android.widget.Toast;
+import android.content.Intent;
 
 import com.example.parkingsystem.R;
+import com.example.parkingsystem.activities.MenuActivity;
 import com.example.parkingsystem.databinding.ActivityMainBinding;
 
 public class ParkingView extends ActivityView {
@@ -18,12 +19,6 @@ public class ParkingView extends ActivityView {
     public String getSizeSubmitted() {
         String size = binding.textParkingSizeQuantityLots.getText().toString();
         return size;
-    }
-
-    public void showToast(String text) {
-        if (getContext() != null) {
-            Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-        }
     }
 
     public void showParkingSize(int size) {
@@ -43,4 +38,9 @@ public class ParkingView extends ActivityView {
             showToast(getContext().getString(R.string.error_invalid_number_logged));
         }
     }
+
+    public void navigateToMenu(){
+        getContext().startActivity(new Intent(getContext(), MenuActivity.class));
+    }
+
 }

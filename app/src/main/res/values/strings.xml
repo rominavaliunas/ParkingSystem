@@ -5,4 +5,11 @@
     <string name="parking_size_msg_quantity">The parking size is %s</string>
     <string name="error_number_format_exception">Error the number you entered is not supported</string>
     <string name="error_invalid_number_logged">Error we cannot create an empty parking</string>
+    <string name="reservation_instruction_security_code">Please enter a security code</string>
+    <string name="reservation_creation_submit">Create Reservation</string>
+    <string name="reservation_instruction_parking_lot">Please enter a parking lot number</string>
+    <string name="reservation_confirmation">Reservation successfully created</string>
+    <string name="menu_delete_reservation">Delete Reservation</string>
+    <string name="menu_release_system">Release System</string>
+    <string name="menu_create_reservation">Create Reservation</string>
 </resources>

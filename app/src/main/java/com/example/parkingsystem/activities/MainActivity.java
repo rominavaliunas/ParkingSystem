@@ -1,4 +1,4 @@
-package com.example.parkingsystem;
+package com.example.parkingsystem.activities;
 
 import android.os.Bundle;
 

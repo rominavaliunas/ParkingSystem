@@ -19,6 +19,7 @@ public class ParkingPresenter {
         try {
             parkingModel.setParkingSize(parkingView.getSizeSubmitted());
             parkingView.showParkingSize(parkingModel.getParkingSize());
+            parkingView.navigateToMenu();
         } catch (NumberFormatException exception) {
             Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
             parkingView.showInvalidSizeError();
