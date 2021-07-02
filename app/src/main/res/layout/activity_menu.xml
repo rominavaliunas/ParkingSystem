@@ -9,32 +9,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:backgroundTint="@color/LightSeaGreen"
         android:text="@string/menu_create_reservation"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@id/button_menu_delete_reservation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/button_menu_delete_reservation"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_menu_delete_reservation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:backgroundTint="@color/LightSeaGreen"
         android:text="@string/menu_delete_reservation"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@id/button_menu_release_system"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_menu_create_reservation"
-        app:layout_constraintBottom_toTopOf="@id/button_menu_release_system"/>
+        app:layout_constraintTop_toBottomOf="@id/button_menu_create_reservation" />
 
     <Button
         android:id="@+id/button_menu_release_system"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:backgroundTint="@color/LightSeaGreen"
         android:text="@string/menu_release_system"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@id/fragment_container_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/fragment_container_menu"
         app:layout_constraintTop_toBottomOf="@id/button_menu_delete_reservation" />
 
     <FrameLayout
@@ -42,10 +48,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@id/button_menu_release_system"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
+        app:layout_constraintTop_toBottomOf="@id/button_menu_release_system" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

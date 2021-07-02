@@ -2,17 +2,78 @@ package com.example.parkingsystem.mvp.presenter;
 
 import android.util.Log;
 
-import com.example.parkingsystem.fragments.ReservationFragment;
-import com.example.parkingsystem.mvp.model.ParkingModel;
-import com.example.parkingsystem.mvp.view.MenuView;
+import com.example.parkingsystem.entities.Reservation;
+import com.example.parkingsystem.mvp.model.ReservationModel;
+import com.example.parkingsystem.mvp.view.FragmentReservationView;
+
+import java.util.Date;
 
 public class ReservationPresenter {
 
-    private ParkingModel reservation;
-    private MenuView menuView;
 
-    public ReservationPresenter(ParkingModel model, MenuView view) {
-        this.reservation = model;
-        this.menuView = view;
+    private final ReservationModel model;
+    private final FragmentReservationView view;
+
+    public ReservationPresenter(ReservationModel reservationModel, FragmentReservationView reservationView) {
+        this.model = reservationModel;
+        this.view = reservationView;
     }
+
+    public void startDT() {
+        view.setStartDateTimeDialog();
+    }
+
+    public void endDT() {
+        view.setEndDateTimeDialog();
+    }
+
+    public void onReservationCreationButtonPressed() {
+        try {
+            String sCode = view.getSecurityCode();
+            int parkingNumber = model.setParkingLotNumber(view.getParkingLotNumberEntered());
+            long startDateTime = view.getStartDateTime().getTime();
+            long endDateTime = view.getEndDateTime().getTime();
+
+            boolean validation = (validateSecurityCode(sCode) && validateParkingLotNumber(parkingNumber) && validateDates(startDateTime, endDateTime));
+
+            if (validation) {
+                Reservation reservation = new Reservation(sCode, parkingNumber, startDateTime, endDateTime);
+                model.addReservationToParking(reservation);
+                view.showReservationConfirmation();
+                // ToDo go to menu & send reservation to menu
+
+            }
+
+        } catch (IllegalArgumentException exception) {
+            Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
+            view.showInvalidNumber();
+        }
+
+    }
+
+    public boolean validateSecurityCode(String code) {
+        if (!code.isEmpty() && code.length() < 10) {
+            return true;
+        }
+        view.showCodeNotComplaint();
+        return false;
+    }
+
+    public boolean validateParkingLotNumber(int parkingNumber) {
+        if (model.getParking().getParkingSize() >= parkingNumber) {
+            return true;
+        }
+        view.showLotNumberGreaterThanParkingSize();
+        return false;
+    }
+
+    public boolean validateDates(long startDateAndTime, long endDateAndTime) {
+        long timeNow = new Date().getTime();
+        if (startDateAndTime < endDateAndTime && startDateAndTime > timeNow) {
+            return true;
+        }
+        view.showInconsistentDates();
+        return false;
+    }
+
 }

@@ -1,13 +1,17 @@
 package com.example.parkingsystem.mvp.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
 import com.example.parkingsystem.R;
 import com.example.parkingsystem.activities.MenuActivity;
 import com.example.parkingsystem.databinding.ActivityMainBinding;
 
+import static com.example.parkingsystem.activities.MenuActivity.PARKING_SIZE;
+
 public class ParkingView extends ActivityView {
+
 
     private final ActivityMainBinding binding;
 
@@ -39,8 +43,13 @@ public class ParkingView extends ActivityView {
         }
     }
 
-    public void navigateToMenu(){
-        getContext().startActivity(new Intent(getContext(), MenuActivity.class));
+    public void navigateToMenu(int value) {
+        Context context = getContext();
+        if (context != null) {
+            Intent intent = new Intent(context, MenuActivity.class);
+            intent.putExtra(PARKING_SIZE, value);
+            context.startActivity(intent);
+        }
     }
 
 }

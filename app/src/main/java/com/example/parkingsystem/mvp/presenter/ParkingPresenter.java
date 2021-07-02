@@ -7,8 +7,8 @@ import com.example.parkingsystem.mvp.view.ParkingView;
 
 public class ParkingPresenter {
 
-    private ParkingModel parkingModel;
-    private ParkingView parkingView;
+    private final ParkingModel parkingModel;
+    private final ParkingView parkingView;
 
     public ParkingPresenter(ParkingModel newParkingModel, ParkingView newParkingView) {
         this.parkingModel = newParkingModel;
@@ -19,7 +19,7 @@ public class ParkingPresenter {
         try {
             parkingModel.setParkingSize(parkingView.getSizeSubmitted());
             parkingView.showParkingSize(parkingModel.getParkingSize());
-            parkingView.navigateToMenu();
+            parkingView.navigateToMenu(parkingModel.getParkingSize()); //ToDo test
         } catch (NumberFormatException exception) {
             Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
             parkingView.showInvalidSizeError();
