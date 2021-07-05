@@ -12,7 +12,6 @@ import static com.example.parkingsystem.activities.MenuActivity.PARKING_SIZE;
 
 public class ParkingView extends ActivityView {
 
-
     private final ActivityMainBinding binding;
 
     public ParkingView(Activity activity, ActivityMainBinding binding) {
@@ -21,8 +20,7 @@ public class ParkingView extends ActivityView {
     }
 
     public String getSizeSubmitted() {
-        String size = binding.textParkingSizeQuantityLots.getText().toString();
-        return size;
+        return binding.textParkingSizeQuantityLots.getText().toString();
     }
 
     public void showParkingSize(int size) {

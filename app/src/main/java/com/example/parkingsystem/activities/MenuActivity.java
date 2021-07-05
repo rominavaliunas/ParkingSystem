@@ -14,6 +14,7 @@ import static com.example.parkingsystem.fragments.ReservationFragment.PARKING_KE
 
 public class MenuActivity extends AppCompatActivity {
     public static final String PARKING_SIZE = "SIZE";
+    public static final String RESERVATION = "RESERVATION";
     private static final String RESERVATION_FRAGMENT_TAG = "RESERVATION_FRAGMENT";
 
     private ActivityMenuBinding binding;
@@ -28,9 +29,16 @@ public class MenuActivity extends AppCompatActivity {
 
         parkingSize = getIntent().getIntExtra(PARKING_SIZE, 0);
 
+        // ToDo get reservation object
+        getReservation();
+
         presenter = new MenuPresenter(parkingSize);
 
         setListeners();
+    }
+
+    private void getReservation() {
+
     }
 
     public void setListeners() {

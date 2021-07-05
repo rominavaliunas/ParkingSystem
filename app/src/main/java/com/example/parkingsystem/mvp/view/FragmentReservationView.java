@@ -1,14 +1,19 @@
 package com.example.parkingsystem.mvp.view;
 
 import android.content.Context;
+import android.content.Intent;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.parkingsystem.R;
+import com.example.parkingsystem.activities.MenuActivity;
 import com.example.parkingsystem.databinding.FragmentReservationBinding;
+import com.example.parkingsystem.entities.Reservation;
 import com.example.parkingsystem.utilities.Picker;
 
 import java.util.Date;
+
+import static com.example.parkingsystem.activities.MenuActivity.RESERVATION;
 
 public class FragmentReservationView extends FragmentView {
 
@@ -78,6 +83,14 @@ public class FragmentReservationView extends FragmentView {
     public void showInconsistentDates() {
         if (context != null) {
             showToast(context.getString(R.string.error_inconsistent_dates));
+        }
+    }
+
+    public void goBackToMenu(Reservation reservation) {
+        if (context != null) {
+            Intent intent = new Intent(context, MenuActivity.class);
+            intent.putExtra(RESERVATION, reservation);
+            context.startActivity(intent);
         }
     }
 }

@@ -34,13 +34,14 @@ public class ReservationPresenter {
             long startDateTime = view.getStartDateTime().getTime();
             long endDateTime = view.getEndDateTime().getTime();
 
-            boolean validation = (validateSecurityCode(sCode) && validateParkingLotNumber(parkingNumber) && validateDates(startDateTime, endDateTime));
+            boolean validateData = (validateSecurityCode(sCode) && validateParkingLotNumber(parkingNumber) && validateDates(startDateTime, endDateTime));
 
-            if (validation) {
+            if (validateData) {
                 Reservation reservation = new Reservation(sCode, parkingNumber, startDateTime, endDateTime);
                 model.addReservationToParking(reservation);
                 view.showReservationConfirmation();
-                // ToDo go to menu & send reservation to menu
+                view.goBackToMenu(reservation);
+                // ToDo send reservation to menu
 
             }
 

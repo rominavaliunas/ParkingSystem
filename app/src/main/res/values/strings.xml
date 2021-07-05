@@ -11,8 +11,8 @@
     <string name="menu_delete_reservation">Delete Reservation</string>
     <string name="menu_release_system">Release System</string>
     <string name="menu_create_reservation">Create Reservation</string>
-    <string name="reservation_hint_select_start_date_and_time">Set start date and time</string>
-    <string name="reservation_hint_select_end_date_and_time">Set end date and time</string>
+    <string name="hint_reservation_select_start_date_and_time">Set start date and time</string>
+    <string name="hint_reservation_select_end_date_and_time">Set end date and time</string>
     <string name="reservation_instruction_enter_date">Please enter desired Date and Time</string>
     <string name="hint_reservation_security_code">Code</string>
     <string name="hint_reservation_parking_lot_number">Parking lot number</string>
