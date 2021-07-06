@@ -28,26 +28,29 @@ public class ReservationPresenter {
     }
 
     public void onReservationCreationButtonPressed() {
+        int parkingNumber = 0;
         try {
-            String sCode = view.getSecurityCode();
-            int parkingNumber = model.setParkingLotNumber(view.getParkingLotNumberEntered());
-            long startDateTime = view.getStartDateTime().getTime();
-            long endDateTime = view.getEndDateTime().getTime();
 
-            boolean validateData = (validateSecurityCode(sCode) && validateParkingLotNumber(parkingNumber) && validateDates(startDateTime, endDateTime));
+            parkingNumber = model.setParkingLotNumber(view.getParkingLotNumberEntered());
 
-            if (validateData) {
-                Reservation reservation = new Reservation(sCode, parkingNumber, startDateTime, endDateTime);
-                model.addReservationToParking(reservation);
-                view.showReservationConfirmation();
-                view.goBackToMenu(reservation);
-                // ToDo send reservation to menu
-
-            }
 
         } catch (IllegalArgumentException exception) {
             Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
             view.showInvalidNumber();
+            return;
+        }
+        String sCode = view.getSecurityCode();
+        long startDateTime = view.getStartDateTime().getTime();
+        long endDateTime = view.getEndDateTime().getTime();
+
+        boolean validateData = (validateSecurityCode(sCode) && validateParkingLotNumber(parkingNumber) && validateDates(startDateTime, endDateTime));
+
+        if (validateData) {
+            Reservation reservation = new Reservation(sCode, parkingNumber, startDateTime, endDateTime);
+            model.addReservationToParking(reservation);
+            view.showReservationConfirmation();
+            view.goBackToMenu(reservation);
+            // ToDo send reservation to menu
         }
 
     }

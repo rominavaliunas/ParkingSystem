@@ -49,5 +49,4 @@ public class ParkingView extends ActivityView {
             context.startActivity(intent);
         }
     }
-
 }
