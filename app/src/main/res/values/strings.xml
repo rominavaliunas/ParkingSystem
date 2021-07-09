@@ -20,4 +20,7 @@
     <string name="error_security_code_not_compliant">Error your code is empty or larger than expected</string>
     <string name="error_lot_number_bigger_than_parking_size">Error lot number is bigger than parking size</string>
     <string name="error_inconsistent_dates">Error! Please check your dates</string>
+    <string name="error_invalid_parking_lot_number_logged">Error we do not have a lot numbered 0</string>
+    <string name="error_another_reservation_in_place">Sorry, there is another reservation at that time!</string>
+    <string name="error_one_or_both_dates_are_null">Please log a date</string>
 </resources>

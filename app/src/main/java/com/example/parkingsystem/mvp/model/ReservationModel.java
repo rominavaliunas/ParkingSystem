@@ -22,20 +22,21 @@ public class ReservationModel {
         return parkingNumber;
     }
 
-    public Parking getParking() {
-        return this.parking;
+    public int getParkingSize() {
+        return this.parking.getParkingSize();
     }
 
 
-    public void addReservationToParking(Reservation reservation) {
+    public boolean addReservationToParking(Reservation reservation) {
         if (!isReservationOnTheList(reservation)) {
             ArrayList<Reservation> listOfReservations = parking.getReservationsList();
             parking.getReservationsList().add(reservation);
+            return true;
         }
-
+        return false;
     }
 
-    private boolean isReservationOnTheList(Reservation reservation) {
+    public boolean isReservationOnTheList(Reservation reservation) {
         boolean onTheList = false;
         for (Reservation reservationList : parking.getReservationsList()) {
             if (reservation.getParkingLot() == reservationList.getParkingLot() &&
@@ -46,7 +47,5 @@ public class ReservationModel {
             }
         }
         return onTheList;
-
     }
-
 }

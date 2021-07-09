@@ -1,5 +1,6 @@
 package com.example.parkingsystem.mvp.presenter;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.parkingsystem.entities.Reservation;
@@ -30,10 +31,7 @@ public class ReservationPresenter {
     public void onReservationCreationButtonPressed() {
         int parkingNumber = 0;
         try {
-
             parkingNumber = model.setParkingLotNumber(view.getParkingLotNumberEntered());
-
-
         } catch (IllegalArgumentException exception) {
             Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
             view.showInvalidNumber();
@@ -43,20 +41,20 @@ public class ReservationPresenter {
         long startDateTime = view.getStartDateTime().getTime();
         long endDateTime = view.getEndDateTime().getTime();
 
-        boolean validateData = (validateSecurityCode(sCode) && validateParkingLotNumber(parkingNumber) && validateDates(startDateTime, endDateTime));
-
-        if (validateData) {
+        if (validateSecurityCode(sCode) && validateParkingLotNumber(parkingNumber) && validateDates(startDateTime, endDateTime)) {
             Reservation reservation = new Reservation(sCode, parkingNumber, startDateTime, endDateTime);
-            model.addReservationToParking(reservation);
-            view.showReservationConfirmation();
-            view.goBackToMenu(reservation);
-            // ToDo send reservation to menu
+            if (model.addReservationToParking(reservation)){
+                view.showReservationConfirmation();
+                view.goBackToMenu(reservation);
+            }
+            else{
+                view.showReservationNotAdded();
+            }
         }
-
     }
 
     public boolean validateSecurityCode(String code) {
-        if (!code.isEmpty() && code.length() < 10) {
+        if (!TextUtils.isEmpty(code) && code.length() < 10) {
             return true;
         }
         view.showCodeNotComplaint();
@@ -64,7 +62,7 @@ public class ReservationPresenter {
     }
 
     public boolean validateParkingLotNumber(int parkingNumber) {
-        if (model.getParking().getParkingSize() >= parkingNumber) {
+        if (model.getParkingSize()>= parkingNumber) {
             return true;
         }
         view.showLotNumberGreaterThanParkingSize();
@@ -72,11 +70,15 @@ public class ReservationPresenter {
     }
 
     public boolean validateDates(long startDateAndTime, long endDateAndTime) {
-        long timeNow = new Date().getTime();
-        if (startDateAndTime < endDateAndTime && startDateAndTime > timeNow) {
-            return true;
+        if(startDateAndTime != 0 || endDateAndTime != 0){
+            long timeNow = new Date().getTime();
+            if (startDateAndTime < endDateAndTime && startDateAndTime > timeNow) {
+                return true;
+            }
+            view.showInconsistentDates();
+            return false;
         }
-        view.showInconsistentDates();
+        view.showEmptyDates();
         return false;
     }
 

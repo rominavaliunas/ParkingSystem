@@ -64,7 +64,7 @@ public class FragmentReservationView extends FragmentView {
 
     public void showInvalidNumber() {
         if (context != null) {
-            showToast(context.getString(R.string.error_invalid_number_logged));
+            showToast(context.getString(R.string.error_invalid_parking_lot_number_logged));
         }
     }
 
@@ -83,6 +83,18 @@ public class FragmentReservationView extends FragmentView {
     public void showInconsistentDates() {
         if (context != null) {
             showToast(context.getString(R.string.error_inconsistent_dates));
+        }
+    }
+
+    public void showReservationNotAdded(){
+        if (context != null){
+            showToast(context.getString(R.string.error_another_reservation_in_place));
+        }
+    }
+
+    public void showEmptyDates(){
+        if (context != null){
+            showToast(context.getString(R.string.error_one_or_both_dates_are_null));
         }
     }
 
