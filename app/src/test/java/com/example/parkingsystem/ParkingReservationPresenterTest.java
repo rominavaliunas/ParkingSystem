@@ -55,7 +55,7 @@ public class ParkingReservationPresenterTest {
 
         doReturn(true).when(spyPresenter).validateSecurityCode("A123");
         doReturn(true).when(spyPresenter).validateParkingLotNumber(2);
-        doReturn(true).when(spyPresenter).validateDates(startDate.getTime(),endDate.getTime());
+        doReturn(true).when(spyPresenter).validateDates(startDate.getTime(), endDate.getTime());
 
         when(model.addReservationToParking(any(Reservation.class))).thenReturn(true);
 
@@ -66,7 +66,7 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
-    public void onReservationCreationButtonPressed_anotherReservationInPlace_reservationNotAdded(){
+    public void onReservationCreationButtonPressed_anotherReservationInPlace_reservationNotAdded() {
         ReservationPresenter spyPresenter = spy(presenter);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
@@ -84,7 +84,7 @@ public class ParkingReservationPresenterTest {
 
         doReturn(true).when(spyPresenter).validateSecurityCode("A123");
         doReturn(true).when(spyPresenter).validateParkingLotNumber(2);
-        doReturn(true).when(spyPresenter).validateDates(startDate.getTime(),endDate.getTime());
+        doReturn(true).when(spyPresenter).validateDates(startDate.getTime(), endDate.getTime());
 
         when(model.addReservationToParking(any(Reservation.class))).thenReturn(false);
 
@@ -129,7 +129,7 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
-    public void validateDates_isFalse_startDateGreaterThanEndDate() {
+    public void validateDates_startDateGreaterThanEndDate_isFalse() {
         //Given
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
@@ -151,11 +151,11 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
-    public void validateDates_isFalse_bothDatesAreInThePast(){
+    public void validateDates_bothDatesAreInThePast_isFalse() {
         //Given
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, -3);
-        Date dateForStart= calendar.getTime();
+        Date dateForStart = calendar.getTime();
         long startDate = dateForStart.getTime();
         calendar.add(Calendar.DAY_OF_YEAR, -2);
         Date dateForEnd = calendar.getTime();
@@ -172,11 +172,11 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
-    public void validateDates_isFalse_startDateIsInThePast(){
+    public void validateDates_startDateIsInThePast_isFalse() {
         //Given
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, -3);
-        Date dateForStart= calendar.getTime();
+        Date dateForStart = calendar.getTime();
         long startDate = dateForStart.getTime();
         calendar.add(Calendar.DAY_OF_YEAR, 5);
         Date dateForEnd = calendar.getTime();
@@ -196,11 +196,11 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
-    public void validateDates_isFalse_endDateIsInThePast(){
+    public void validateDates_endDateIsInThePast_isFalse() {
         //Given
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, 3);
-        Date dateForStart= calendar.getTime();
+        Date dateForStart = calendar.getTime();
         long startDate = dateForStart.getTime();
         calendar.add(Calendar.DAY_OF_YEAR, -5);
         Date dateForEnd = calendar.getTime();
@@ -219,7 +219,7 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
-    public void validateDates_isNull(){
+    public void validateDates_isNull() {
         // When
         presenter.validateDates(0, 0);
         // Then
@@ -227,7 +227,7 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
-    public void validateSecurityCode_isTrue(){
+    public void validateSecurityCode_isTrue() {
         //Given
         String code = "ADN123";
         when(view.getSecurityCode()).thenReturn(code);
@@ -240,7 +240,7 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
-    public void validateSecurityCode_isFalse_codeIsEmpty(){
+    public void validateSecurityCode_codeIsEmpty_isFalse() {
         //Given
         String code = "";
         when(view.getSecurityCode()).thenReturn(code);
@@ -254,7 +254,7 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
-    public void validateSecurityCode_isFalse_codesIsTooLarge(){
+    public void validateSecurityCode_codesIsTooLarge_isFalse() {
         //Given
         String code = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456";
         when(view.getSecurityCode()).thenReturn(code);
@@ -268,14 +268,14 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
-    public void validateSecurityCode_isNull(){
+    public void validateSecurityCode_isNull() {
         presenter.validateSecurityCode(null);
 
         verify(view).showCodeNotComplaint();
     }
 
     @Test
-    public void validateParkingLotNumber_isTrue(){
+    public void validateParkingLotNumber_isTrue() {
         //Given
         when(model.setParkingLotNumber(view.getParkingLotNumberEntered())).thenReturn(10);
         when(model.getParkingSize()).thenReturn(20);
@@ -288,7 +288,7 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
-    public void validateParkingLotNumber_isFalse_parkingSizeIsSmallerThanLotNumberEntered(){
+    public void validateParkingLotNumber_parkingSizeIsSmallerThanLotNumberEntered_isFalse() {
         //Given
         when(model.setParkingLotNumber(view.getParkingLotNumberEntered())).thenReturn(5);
         when(model.getParkingSize()).thenReturn(2);
@@ -308,7 +308,7 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
-    public void endDT_success(){
+    public void endDT_success() {
         presenter.endDT();
 
         verify(view).setEndDateTimeDialog();

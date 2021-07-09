@@ -3,35 +3,26 @@ package com.example.parkingsystem;
 import com.example.parkingsystem.entities.Parking;
 import com.example.parkingsystem.entities.Reservation;
 import com.example.parkingsystem.mvp.model.ReservationModel;
-import com.example.parkingsystem.mvp.presenter.ReservationPresenter;
-import com.example.parkingsystem.mvp.view.FragmentReservationView;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ParkingReservationModelTest {
 
-    private ReservationPresenter presenter;
     private ReservationModel model;
-    private FragmentReservationView view;
-    private Parking parking;
-    private Reservation reservation;
 
     @Before
     public void setup() {
-        parking = new Parking(10);
+        Parking parking = new Parking(10);
         model = new ReservationModel(parking);
     }
 
     @Test
-    public void getParkingSize_sizeReturned(){
+    public void getParkingSize_sizeReturned() {
         Assert.assertEquals(10, model.getParkingSize());
     }
 
@@ -42,32 +33,52 @@ public class ParkingReservationModelTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void setParkingLotNumber_invalidParkingLotNumber_throwException() {
-        model.setParkingLotNumber("asjdb");
+        model.setParkingLotNumber("0");
     }
 
     @Test
-    public void setParkingLotNumber_failed_catchException() {
-
+    public void addReservationToParking_reservationAdded_isTrue() {
+        Assert.assertTrue(model.addReservationToParking(new Reservation()));
     }
 
     @Test
-    public void addReservationToParking_isTrue_reservationAdded() {
-
+    public void addReservationToParking_secondReservationWithSameArguments_isFalse() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date startDate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 2);
+        Date endDate = calendar.getTime();
+        Assert.assertTrue(model.addReservationToParking(new Reservation("sdj", 2, startDate.getTime(), endDate.getTime())));
+        Assert.assertFalse(model.addReservationToParking(new Reservation("sdj", 2, startDate.getTime(), endDate.getTime())));
     }
 
     @Test
-    public void addReservationToParking_isFalse_anotherReservationInPlace() {
-
+    public void addReservationToParking_secondReservationBeginsBeforeExistingOneEnds_isFalse() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date startDate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date startDate2ndReservation = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate2ndReservation = calendar.getTime();
+        Assert.assertTrue(model.addReservationToParking(new Reservation("sdj", 2, startDate.getTime(), endDate.getTime())));
+        Assert.assertFalse(model.addReservationToParking(new Reservation("sdj", 2, startDate2ndReservation.getTime(), endDate2ndReservation.getTime())));
     }
 
     @Test
-    public void isReservationOnTheList_isFalse() {
-
-    }
-
-    @Test
-    public void isReservationOnTheList_isTrue(){
-        model.isReservationOnTheList(reservation);
-
+    public void addReservationToParking_secondReservationTakesPlaceBeforeExistingOneBegins_isFalse() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date startDate2ndReservation = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate2ndReservation = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date startDate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate = calendar.getTime();
+        Assert.assertTrue(model.addReservationToParking(new Reservation("sdj", 2, startDate.getTime(), endDate.getTime())));
+        Assert.assertFalse(model.addReservationToParking(new Reservation("sdj", 2, startDate2ndReservation.getTime(), endDate2ndReservation.getTime())));
     }
 }

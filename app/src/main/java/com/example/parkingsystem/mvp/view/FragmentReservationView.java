@@ -86,14 +86,14 @@ public class FragmentReservationView extends FragmentView {
         }
     }
 
-    public void showReservationNotAdded(){
-        if (context != null){
+    public void showReservationNotAdded() {
+        if (context != null) {
             showToast(context.getString(R.string.error_another_reservation_in_place));
         }
     }
 
-    public void showEmptyDates(){
-        if (context != null){
+    public void showEmptyDates() {
+        if (context != null) {
             showToast(context.getString(R.string.error_one_or_both_dates_are_null));
         }
     }

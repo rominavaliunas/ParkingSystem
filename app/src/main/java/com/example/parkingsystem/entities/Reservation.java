@@ -34,6 +34,10 @@ public class Reservation implements Parcelable {
         this.parkingLot = in.readInt();
     }
 
+    public Reservation() {
+
+    }
+
     public String getSecurityCode() {
         return securityCode;
     }

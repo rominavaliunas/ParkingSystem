@@ -43,11 +43,10 @@ public class ReservationPresenter {
 
         if (validateSecurityCode(sCode) && validateParkingLotNumber(parkingNumber) && validateDates(startDateTime, endDateTime)) {
             Reservation reservation = new Reservation(sCode, parkingNumber, startDateTime, endDateTime);
-            if (model.addReservationToParking(reservation)){
+            if (model.addReservationToParking(reservation)) {
                 view.showReservationConfirmation();
                 view.goBackToMenu(reservation);
-            }
-            else{
+            } else {
                 view.showReservationNotAdded();
             }
         }
@@ -62,7 +61,7 @@ public class ReservationPresenter {
     }
 
     public boolean validateParkingLotNumber(int parkingNumber) {
-        if (model.getParkingSize()>= parkingNumber) {
+        if (model.getParkingSize() >= parkingNumber) {
             return true;
         }
         view.showLotNumberGreaterThanParkingSize();
@@ -70,7 +69,7 @@ public class ReservationPresenter {
     }
 
     public boolean validateDates(long startDateAndTime, long endDateAndTime) {
-        if(startDateAndTime != 0 || endDateAndTime != 0){
+        if (startDateAndTime != 0 || endDateAndTime != 0) {
             long timeNow = new Date().getTime();
             if (startDateAndTime < endDateAndTime && startDateAndTime > timeNow) {
                 return true;
