@@ -43,5 +43,4 @@ public class ReservationFragment extends Fragment {
             presenter.onReservationCreationButtonPressed();
         });
     }
-
 }

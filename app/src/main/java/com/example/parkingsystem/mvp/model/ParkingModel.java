@@ -14,5 +14,4 @@ public class ParkingModel {
             throw new IllegalArgumentException();
         }
     }
-
 }

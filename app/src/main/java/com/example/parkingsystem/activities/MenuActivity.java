@@ -52,5 +52,4 @@ public class MenuActivity extends AppCompatActivity {
             transaction.commit();
         });
     }
-
 }

@@ -80,5 +80,4 @@ public class ReservationPresenter {
         view.showEmptyDates();
         return false;
     }
-
 }

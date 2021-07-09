@@ -28,5 +28,4 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonParkingSizeSubmitParkingLots.setOnClickListener(view ->
                 presenter.onParkingSizeCreationButtonPressed());
     }
-
 }

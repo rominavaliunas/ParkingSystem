@@ -12,5 +12,4 @@ public class MenuPresenter {
     public Parking getParking() {
         return parking;
     }
-
 }
