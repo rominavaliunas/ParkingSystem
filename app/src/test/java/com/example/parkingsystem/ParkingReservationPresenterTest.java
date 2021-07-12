@@ -109,6 +109,20 @@ public class ParkingReservationPresenterTest {
     }
 
     @Test
+    public void onReservationCreationButtonPressed_negativeLotNumber_catchException() {
+        //Given
+        when(model.getParkingSize()).thenReturn(2);
+        when(view.getParkingLotNumberEntered()).thenReturn("-15");
+
+        doThrow(new IllegalArgumentException()).when(model).setParkingLotNumber("-15");
+
+        //When
+        presenter.onReservationCreationButtonPressed();
+        //Then
+        verify(view).showInvalidNumber();
+    }
+
+    @Test
     public void validateDates_isTrue() {
         //Given
         Calendar calendar = Calendar.getInstance();
@@ -274,6 +288,7 @@ public class ParkingReservationPresenterTest {
         verify(view).showCodeNotComplaint();
     }
 
+    //ToDo check test for parkingLot greater than parkingSize
     @Test
     public void validateParkingLotNumber_isTrue() {
         //Given
