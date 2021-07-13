@@ -16,7 +16,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="15dp"
             android:text="@string/reservation_instruction_security_code"
-            android:textColor="@color/black"
+            android:textColor="@android:color/black"
             android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@id/text_reservation_security_code"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_reservation_instruction_enter_security_code" />
+            app:layout_constraintTop_toBottomOf="@id/text_reservation_instruction_enter_security_code" />
 
         <TextView
             android:id="@+id/text_reservation_instruction_enter_parking_lot"
@@ -45,7 +45,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="15dp"
             android:text="@string/reservation_instruction_parking_lot"
-            android:textColor="@color/black"
+            android:textColor="@android:color/black"
             android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@id/text_reservation_parking_lot"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
             app:layout_constraintBottom_toTopOf="@id/text_reservation_instruction_enter_date_and_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_reservation_instruction_enter_parking_lot" />
+            app:layout_constraintTop_toBottomOf="@id/text_reservation_instruction_enter_parking_lot" />
 
         <TextView
             android:id="@+id/text_reservation_instruction_enter_date_and_time"
@@ -75,13 +75,12 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="15dp"
             android:text="@string/reservation_instruction_enter_date"
-            android:textColor="@color/black"
+            android:textColor="@android:color/black"
             android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@+id/start_input_date_and_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_reservation_parking_lot" />
-
 
         <EditText
             android:id="@+id/start_input_date_and_time"
@@ -92,11 +91,11 @@
             android:layout_marginRight="15dp"
             android:hint="@string/hint_reservation_select_start_date_and_time"
             android:inputType="none"
-            app:layout_constraintBottom_toTopOf="@+id/end_input_date_and_time"
+            app:layout_constraintBottom_toTopOf="@id/end_input_date_and_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.137"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_reservation_instruction_enter_date_and_time" />
+            app:layout_constraintTop_toBottomOf="@id/text_reservation_instruction_enter_date_and_time" />
 
         <EditText
             android:id="@+id/end_input_date_and_time"
@@ -107,10 +106,10 @@
             android:layout_marginRight="15dp"
             android:hint="@string/hint_reservation_select_end_date_and_time"
             android:inputType="none"
-            app:layout_constraintBottom_toTopOf="@+id/button_reservation_submit"
+            app:layout_constraintBottom_toTopOf="@id/button_reservation_submit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/start_input_date_and_time" />
+            app:layout_constraintTop_toBottomOf="@id/start_input_date_and_time" />
 
         <Button
             android:id="@+id/button_reservation_submit"
@@ -119,13 +118,13 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="15dp"
-            android:backgroundTint="@color/LightSeaGreen"
+            android:backgroundTint="@color/light_sea_green"
             android:text="@string/reservation_creation_submit"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/end_input_date_and_time" />
+            app:layout_constraintTop_toBottomOf="@id/end_input_date_and_time" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

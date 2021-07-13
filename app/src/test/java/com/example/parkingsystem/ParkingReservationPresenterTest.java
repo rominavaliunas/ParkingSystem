@@ -53,9 +53,13 @@ public class ParkingReservationPresenterTest {
         when(view.getEndDateTime()).thenReturn(endDate);
         when(model.setParkingLotNumber("2")).thenReturn(2);
 
-        doReturn(true).when(spyPresenter).validateSecurityCode("A123");
-        doReturn(true).when(spyPresenter).validateParkingLotNumber(2);
-        doReturn(true).when(spyPresenter).validateDates(startDate.getTime(), endDate.getTime());
+        when(spyPresenter).validateSecurityCode("A123").thenReturn(true);
+        when(spyPresenter).validateParkingLotNumber(2).thenReturn(true);
+        when(spyPresenter).validateDates(startDate.getTime(), endDate.getTime()).thenReturn(true);
+
+        //doReturn(true).when(spyPresenter).validateSecurityCode("A123");
+        //doReturn(true).when(spyPresenter).validateParkingLotNumber(2);
+        //doReturn(true).when(spyPresenter).validateDates(startDate.getTime(), endDate.getTime());
 
         when(model.addReservationToParking(any(Reservation.class))).thenReturn(true);
 
@@ -100,7 +104,8 @@ public class ParkingReservationPresenterTest {
         when(model.getParkingSize()).thenReturn(2);
         when(view.getParkingLotNumberEntered()).thenReturn("0");
 
-        doThrow(new IllegalArgumentException()).when(model).setParkingLotNumber("0");
+        when(model).setParkingLotNumber("0").thenThrow(IllegalArgumentException.class)
+        //doThrow(new IllegalArgumentException()).when(model).setParkingLotNumber("0");
 
         //When
         presenter.onReservationCreationButtonPressed();
@@ -317,14 +322,14 @@ public class ParkingReservationPresenterTest {
 
     @Test
     public void startDT_success() {
-        presenter.startDT();
+        presenter.selectStartDateAndTime();
 
         verify(view).setStartDateTimeDialog();
     }
 
     @Test
     public void endDT_success() {
-        presenter.endDT();
+        presenter.selectEndDateAndTime();
 
         verify(view).setEndDateTimeDialog();
     }

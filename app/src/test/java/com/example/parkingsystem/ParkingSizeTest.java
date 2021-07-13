@@ -3,7 +3,7 @@ package com.example.parkingsystem;
 import android.util.Log;
 
 import com.example.parkingsystem.mvp.model.ParkingModel;
-import com.example.parkingsystem.mvp.presenter.ParkingPresenter;
+import com.example.parkingsystem.mvp.presenter.ParkingSizePresenter;
 import com.example.parkingsystem.mvp.view.ParkingView;
 
 import org.junit.After;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 public class ParkingSizeTest {
 
-    private ParkingPresenter presenter;
+    private ParkingSizePresenter presenter;
     private ParkingModel model;
     private ParkingView view;
     private MockedStatic<Log> logMockedStatic;
@@ -28,7 +28,7 @@ public class ParkingSizeTest {
     public void setup() {
         model = mock(ParkingModel.class);
         view = mock(ParkingView.class);
-        presenter = new ParkingPresenter(model, view);
+        presenter = new ParkingSizePresenter(model, view);
         logMockedStatic = mockStatic(Log.class);
     }
 

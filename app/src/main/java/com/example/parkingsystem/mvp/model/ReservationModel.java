@@ -33,15 +33,13 @@ public class ReservationModel {
         return false;
     }
 
-    private boolean isReservationOnTheList(Reservation reservation) {
-        boolean onTheList = false;
-        for (Reservation reservationList : parking.getReservationsList()) {
-            if (reservation.getParkingLot() == reservationList.getParkingLot() &&
-                    reservation.getStartDateTime() < reservationList.getEndDateTime()) {
-                onTheList = true;
-                break;
+    private boolean isReservationOnTheList(Reservation newReservation) {
+        for (Reservation reservation : parking.getReservationsList()) {
+            if (newReservation.getParkingLot() == reservation.getParkingLot() &&
+                    newReservation.getStartDateTime() < reservation.getEndDateTime()) {
+                return true;
             }
         }
-        return onTheList;
+        return false;
     }
 }

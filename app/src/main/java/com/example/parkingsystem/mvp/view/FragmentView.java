@@ -19,8 +19,9 @@ public class FragmentView {
 
     @Nullable
     public Activity getActivity() {
-        if (getFragment() != null) {
-            return getFragment().getActivity();
+        Fragment fragment = getFragment();
+        if (fragment != null) {
+            return fragment.getActivity();
         }
         return null;
     }
@@ -46,8 +47,9 @@ public class FragmentView {
 
     @Nullable
     public void showToast(String text) {
-        if (getContext() != null) {
-            Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+        Context context = getContext();
+        if (context != null) {
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show();
         }
     }
 }

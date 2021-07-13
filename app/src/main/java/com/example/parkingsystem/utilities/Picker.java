@@ -14,7 +14,7 @@ import static java.util.Calendar.HOUR_OF_DAY;
 import static java.util.Calendar.MINUTE;
 
 public class Picker {
-    public DatePickerDialog datePickerDialog;
+    private DatePickerDialog datePickerDialog;
     Date date;
 
     public Picker(EditText date_time) {

@@ -11,7 +11,6 @@ import java.util.Date;
 
 public class ReservationPresenter {
 
-
     private final ReservationModel model;
     private final FragmentReservationView view;
 
@@ -20,11 +19,11 @@ public class ReservationPresenter {
         this.view = reservationView;
     }
 
-    public void startDT() {
+    public void selectStartDateAndTime() {
         view.setStartDateTimeDialog();
     }
 
-    public void endDT() {
+    public void selectEndDateAndTime() {
         view.setEndDateTimeDialog();
     }
 
@@ -33,16 +32,16 @@ public class ReservationPresenter {
         try {
             parkingNumber = model.setParkingLotNumber(view.getParkingLotNumberEntered());
         } catch (IllegalArgumentException exception) {
-            Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
+            Log.e(ParkingSizePresenter.class.getSimpleName(), exception.toString());
             view.showInvalidNumber();
             return;
         }
-        String sCode = view.getSecurityCode();
+        String securityCode = view.getSecurityCode();
         long startDateTime = view.getStartDateTime().getTime();
         long endDateTime = view.getEndDateTime().getTime();
 
-        if (validateSecurityCode(sCode) && validateParkingLotNumber(parkingNumber) && validateDates(startDateTime, endDateTime)) {
-            Reservation reservation = new Reservation(sCode, parkingNumber, startDateTime, endDateTime);
+        if (validateSecurityCode(securityCode) && validateParkingLotNumber(parkingNumber) && validateDates(startDateTime, endDateTime)) {
+            Reservation reservation = new Reservation(securityCode, parkingNumber, startDateTime, endDateTime);
             if (model.addReservationToParking(reservation)) {
                 view.showReservationConfirmation();
                 view.goBackToMenu(reservation);
@@ -53,7 +52,7 @@ public class ReservationPresenter {
     }
 
     public boolean validateSecurityCode(String code) {
-        if (!TextUtils.isEmpty(code) && code.length() < 10) {
+        if (!code.isEmpty() && code.length() < 10) {
             return true;
         }
         view.showCodeNotComplaint();

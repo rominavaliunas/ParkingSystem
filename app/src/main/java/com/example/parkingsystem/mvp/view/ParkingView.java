@@ -8,7 +8,7 @@ import com.example.parkingsystem.R;
 import com.example.parkingsystem.activities.MenuActivity;
 import com.example.parkingsystem.databinding.ActivityMainBinding;
 
-import static com.example.parkingsystem.activities.MenuActivity.PARKING_SIZE;
+import static com.example.parkingsystem.activities.MenuActivity.PARKING_SIZE_EXTRA;
 
 public class ParkingView extends ActivityView {
 
@@ -36,16 +36,14 @@ public class ParkingView extends ActivityView {
     }
 
     public void showInvalidNumber() {
-        if (getContext() != null) {
-            showToast(getContext().getString(R.string.error_invalid_number_logged));
-        }
+        showToast(getContext().getString(R.string.error_invalid_number_logged));
     }
 
     public void navigateToMenu(int value) {
         Context context = getContext();
         if (context != null) {
             Intent intent = new Intent(context, MenuActivity.class);
-            intent.putExtra(PARKING_SIZE, value);
+            intent.putExtra(PARKING_SIZE_EXTRA, value);
             context.startActivity(intent);
         }
     }

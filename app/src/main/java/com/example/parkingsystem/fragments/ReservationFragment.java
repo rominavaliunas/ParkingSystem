@@ -37,8 +37,8 @@ public class ReservationFragment extends Fragment {
     }
 
     public void setListeners() {
-        binding.startInputDateAndTime.setOnClickListener(view -> presenter.startDT());
-        binding.endInputDateAndTime.setOnClickListener(view -> presenter.endDT());
+        binding.startInputDateAndTime.setOnClickListener(view -> presenter.selectStartDateAndTime());
+        binding.endInputDateAndTime.setOnClickListener(view -> presenter.selectEndDateAndTime());
         binding.buttonReservationSubmit.setOnClickListener(view -> {
             presenter.onReservationCreationButtonPressed();
         });

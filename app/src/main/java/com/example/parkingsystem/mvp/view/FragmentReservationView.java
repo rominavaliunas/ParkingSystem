@@ -13,31 +13,27 @@ import com.example.parkingsystem.utilities.Picker;
 
 import java.util.Date;
 
-import static com.example.parkingsystem.activities.MenuActivity.RESERVATION;
+import static com.example.parkingsystem.activities.MenuActivity.RESERVATION_EXTRA;
 
 public class FragmentReservationView extends FragmentView {
 
     private final FragmentReservationBinding binding;
-    private final Context context;
     private Picker startDateTimePicker;
     private Picker endDateTimePicker;
 
     public FragmentReservationView(Fragment fragmentRef, FragmentReservationBinding binding) {
         super(fragmentRef);
         this.binding = binding;
-        this.context = getContext();
         startDateTimePicker = new Picker(binding.startInputDateAndTime);
         endDateTimePicker = new Picker(binding.endInputDateAndTime);
     }
 
     public String getSecurityCode() {
-        String code = binding.textReservationSecurityCode.getText().toString();
-        return code;
+        return binding.textReservationSecurityCode.getText().toString();
     }
 
     public String getParkingLotNumberEntered() {
-        String number = binding.textReservationParkingLot.getText().toString();
-        return number;
+        return binding.textReservationParkingLot.getText().toString();
     }
 
     public void setStartDateTimeDialog() {
@@ -57,52 +53,38 @@ public class FragmentReservationView extends FragmentView {
     }
 
     public void showReservationConfirmation() {
-        if (context != null) {
-            showToast(context.getString(R.string.confirmation_reservation_created));
-        }
+        showToast(getContext().getString(R.string.confirmation_reservation_created));
     }
 
     public void showInvalidNumber() {
-        if (context != null) {
-            showToast(context.getString(R.string.error_invalid_parking_lot_number_logged));
-        }
+        showToast(getContext().getString(R.string.error_invalid_parking_lot_number_logged));
     }
 
     public void showCodeNotComplaint() {
-        if (context != null) {
-            showToast(context.getString(R.string.error_security_code_not_compliant));
-        }
+        showToast(getContext().getString(R.string.error_security_code_not_compliant));
     }
 
     public void showLotNumberGreaterThanParkingSize() {
-        if (context != null) {
-            showToast(context.getString(R.string.error_lot_number_bigger_than_parking_size));
-        }
+        showToast(getContext().getString(R.string.error_lot_number_bigger_than_parking_size));
     }
 
     public void showInconsistentDates() {
-        if (context != null) {
-            showToast(context.getString(R.string.error_inconsistent_dates));
-        }
+        showToast(getContext().getString(R.string.error_inconsistent_dates));
     }
 
     public void showReservationNotAdded() {
-        if (context != null) {
-            showToast(context.getString(R.string.error_another_reservation_in_place));
-        }
+        showToast(getContext().getString(R.string.error_another_reservation_in_place));
     }
 
     public void showEmptyDates() {
-        if (context != null) {
-            showToast(context.getString(R.string.error_one_or_both_dates_are_null));
-        }
+        showToast(getContext().getString(R.string.error_one_or_both_dates_are_null));
     }
 
     public void goBackToMenu(Reservation reservation) {
-        if (context != null) {
-            Intent intent = new Intent(context, MenuActivity.class);
-            intent.putExtra(RESERVATION, reservation);
-            context.startActivity(intent);
+        if (getContext() != null) {
+            Intent intent = new Intent(getContext(), MenuActivity.class);
+            intent.putExtra(RESERVATION_EXTRA, reservation);
+            getContext().startActivity(intent);
         }
     }
 }
