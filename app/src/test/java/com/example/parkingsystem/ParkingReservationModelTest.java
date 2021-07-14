@@ -38,7 +38,12 @@ public class ParkingReservationModelTest {
 
     @Test
     public void addReservationToParking_reservationAdded_isTrue() {
-        Assert.assertTrue(model.addReservationToParking(new Reservation()));
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 0);
+        Date startDate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate = calendar.getTime();
+        Assert.assertTrue(model.addReservationToParking(new Reservation("sdj", 2, startDate.getTime(), endDate.getTime())));
     }
 
     @Test

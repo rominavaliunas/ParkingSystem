@@ -1,5 +1,6 @@
 package com.example.parkingsystem.utilities;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.widget.DatePicker;
@@ -14,8 +15,13 @@ import static java.util.Calendar.HOUR_OF_DAY;
 import static java.util.Calendar.MINUTE;
 
 public class Picker {
+
+    private static final String RESERVATION_FRAGMENT_TAG = "RESERVATION_FRAGMENT";
+    @SuppressLint("SimpleDateFormat")
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm");
+
     private DatePickerDialog datePickerDialog;
-    Date date;
+    private Date date;
 
     public Picker(EditText date_time) {
         showDateTimeDialog(date_time);
@@ -40,7 +46,6 @@ public class Picker {
                         calendar.set(HOUR_OF_DAY, hourOfDay);
                         calendar.set(MINUTE, minute);
 
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm");
                         date = calendar.getTime();
                         date_time.setText(simpleDateFormat.format(calendar.getTime()));
                     }
