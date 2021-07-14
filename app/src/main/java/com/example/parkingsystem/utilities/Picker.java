@@ -17,8 +17,7 @@ import static java.util.Calendar.MINUTE;
 public class Picker {
 
     private static final String RESERVATION_FRAGMENT_TAG = "RESERVATION_FRAGMENT";
-    @SuppressLint("SimpleDateFormat")
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm");
+    private final String dateFormat ="yy-MM-dd HH:mm";
 
     private DatePickerDialog datePickerDialog;
     private Date date;
@@ -46,6 +45,8 @@ public class Picker {
                         calendar.set(HOUR_OF_DAY, hourOfDay);
                         calendar.set(MINUTE, minute);
 
+                        @SuppressLint("SimpleDateFormat")
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
                         date = calendar.getTime();
                         date_time.setText(simpleDateFormat.format(calendar.getTime()));
                     }
