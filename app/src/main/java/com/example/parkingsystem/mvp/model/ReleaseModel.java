@@ -1,4 +1,5 @@
 package com.example.parkingsystem.mvp.model;
+
 import com.example.parkingsystem.entities.Parking;
 
 public class ReleaseModel {
