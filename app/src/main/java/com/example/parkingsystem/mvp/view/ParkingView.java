@@ -1,10 +1,14 @@
 package com.example.parkingsystem.mvp.view;
 
 import android.app.Activity;
-import android.widget.Toast;
+import android.content.Context;
+import android.content.Intent;
 
 import com.example.parkingsystem.R;
+import com.example.parkingsystem.activities.MenuActivity;
 import com.example.parkingsystem.databinding.ActivityMainBinding;
+
+import static com.example.parkingsystem.activities.MenuActivity.PARKING_SIZE_EXTRA;
 
 public class ParkingView extends ActivityView {
 
@@ -16,14 +20,7 @@ public class ParkingView extends ActivityView {
     }
 
     public String getSizeSubmitted() {
-        String size = binding.textParkingSizeQuantityLots.getText().toString();
-        return size;
-    }
-
-    public void showToast(String text) {
-        if (getContext() != null) {
-            Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-        }
+        return binding.textParkingSizeQuantityLots.getText().toString();
     }
 
     public void showParkingSize(int size) {
@@ -35,6 +32,19 @@ public class ParkingView extends ActivityView {
     public void showInvalidSizeError() {
         if (getContext() != null) {
             showToast(getContext().getString(R.string.error_number_format_exception));
+        }
+    }
+
+    public void showInvalidNumber() {
+        showToast(getContext().getString(R.string.error_invalid_number_logged));
+    }
+
+    public void navigateToMenu(int value) {
+        Context context = getContext();
+        if (context != null) {
+            Intent intent = new Intent(context, MenuActivity.class);
+            intent.putExtra(PARKING_SIZE_EXTRA, value);
+            context.startActivity(intent);
         }
     }
 }

@@ -5,12 +5,12 @@ import android.util.Log;
 import com.example.parkingsystem.mvp.model.ParkingModel;
 import com.example.parkingsystem.mvp.view.ParkingView;
 
-public class ParkingPresenter {
+public class ParkingSizePresenter {
 
-    private ParkingModel parkingModel;
-    private ParkingView parkingView;
+    private final ParkingModel parkingModel;
+    private final ParkingView parkingView;
 
-    public ParkingPresenter(ParkingModel newParkingModel, ParkingView newParkingView) {
+    public ParkingSizePresenter(ParkingModel newParkingModel, ParkingView newParkingView) {
         this.parkingModel = newParkingModel;
         this.parkingView = newParkingView;
     }
@@ -19,9 +19,13 @@ public class ParkingPresenter {
         try {
             parkingModel.setParkingSize(parkingView.getSizeSubmitted());
             parkingView.showParkingSize(parkingModel.getParkingSize());
+            parkingView.navigateToMenu(parkingModel.getParkingSize());
         } catch (NumberFormatException exception) {
-            Log.e(ParkingPresenter.class.getSimpleName(), exception.toString());
+            Log.e(ParkingSizePresenter.class.getSimpleName(), exception.toString());
             parkingView.showInvalidSizeError();
+        } catch (IllegalArgumentException exception) {
+            Log.e(ParkingSizePresenter.class.getSimpleName(), exception.toString());
+            parkingView.showInvalidNumber();
         }
 
     }

@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <TextView
         android:id="@+id/text_parking_size_instruction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="100dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="20dp"
+        android:fontFamily="sans-serif-black"
         android:text="@string/parking_size_instructions"
-        android:textSize="35sp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/text_parking_size_quantity_lots"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +31,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="15dp"
         android:inputType="number"
-        android:padding="16dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/button_parking_size_submit_parking_lots"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_parking_size_instruction" />
@@ -38,11 +41,14 @@
         android:id="@+id/button_parking_size_submit_parking_lots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/light_sea_green"
         android:text="@string/parking_size_submit"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/text_parking_size_quantity_lots" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
