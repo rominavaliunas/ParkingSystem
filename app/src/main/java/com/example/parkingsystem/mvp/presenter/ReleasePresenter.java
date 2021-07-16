@@ -28,6 +28,10 @@ public class ReleasePresenter {
         String securityCode = view.getSecurityCode();
         if (validateSecurityCode(securityCode) && validateParkingLotNumber(parkingNumber)) {
             Reservation newReservation = new Reservation(securityCode, parkingNumber);
+            if (model.numberOfMatchesOfTheReservation(newReservation)>1){
+                view.showBugMessage();
+                return false;
+            }
             if (model.releaseParking(newReservation)) {
                 view.showParkingReleasedConfirmation();
                 return true;

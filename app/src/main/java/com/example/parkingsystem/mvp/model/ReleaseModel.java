@@ -27,8 +27,18 @@ public class ReleaseModel {
         return parkingLotNumber;
     }
 
+    public int numberOfMatchesOfTheReservation(Reservation reservationToBeReleased) {
+        int numberOfMatches = 0;
+        for (Reservation reservation : getParking().getReservationsList()) {
+            if (reservation.equals(reservationToBeReleased)) {
+                numberOfMatches++;
+            }
+        }
+        return numberOfMatches;
+    }
+
     public boolean releaseParking(Reservation newReservation) {
-        if (getParking().getReservationsList().size() == 0) {
+        if (getParking().getReservationsList().size() == 0 || numberOfMatchesOfTheReservation(newReservation) > 1) {
             return false;
         }
         for (Reservation reservation : getParking().getReservationsList()) {

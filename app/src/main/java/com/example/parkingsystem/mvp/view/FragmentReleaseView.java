@@ -41,4 +41,8 @@ public class FragmentReleaseView extends FragmentView {
     public void showCodeNotComplaint() {
         showToast(getContext().getString(R.string.error_security_code_not_compliant));
     }
+
+    public void showBugMessage(){
+        showToast(getContext().getString(R.string.error_more_than_one_reservation_matches));
+    }
 }
