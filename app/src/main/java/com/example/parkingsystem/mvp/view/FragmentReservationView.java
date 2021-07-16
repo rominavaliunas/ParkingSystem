@@ -1,19 +1,12 @@
 package com.example.parkingsystem.mvp.view;
 
-import android.content.Context;
-import android.content.Intent;
-
 import androidx.fragment.app.Fragment;
 
 import com.example.parkingsystem.R;
-import com.example.parkingsystem.activities.MenuActivity;
 import com.example.parkingsystem.databinding.FragmentReservationBinding;
-import com.example.parkingsystem.entities.Reservation;
 import com.example.parkingsystem.utilities.Picker;
 
 import java.util.Date;
-
-import static com.example.parkingsystem.activities.MenuActivity.RESERVATION_EXTRA;
 
 public class FragmentReservationView extends FragmentView {
 
@@ -78,13 +71,5 @@ public class FragmentReservationView extends FragmentView {
 
     public void showEmptyDates() {
         showToast(getContext().getString(R.string.error_one_or_both_dates_are_null));
-    }
-
-    public void goBackToMenu(Reservation reservation) {
-        if (getContext() != null) {
-            Intent intent = new Intent(getContext(), MenuActivity.class);
-            intent.putExtra(RESERVATION_EXTRA, reservation);
-            getContext().startActivity(intent);
-        }
     }
 }

@@ -1,27 +1,42 @@
 package com.example.parkingsystem.mvp.model;
 
 import com.example.parkingsystem.entities.Parking;
+import com.example.parkingsystem.entities.Reservation;
 
 public class ReleaseModel {
 
-    private Parking parking;
-    private int parkingLotNumber;
+    private final Parking parking;
 
-    ReleaseModel(Parking releaseParking){
+    public ReleaseModel(Parking releaseParking) {
         this.parking = releaseParking;
     }
 
-    public int parkingNumberForRelease(String size) throws IllegalArgumentException {
-        this.parkingLotNumber = Integer.parseInt(size);
+    public Parking getParking() {
+        return this.parking;
+    }
+
+    public int getSizeOfParking() {
+        return this.parking.getParkingSize();
+    }
+
+    public int desiredParkingNumberForRelease(String size) throws IllegalArgumentException {
+        int parkingLotNumber = Integer.parseInt(size);
         if (parkingLotNumber == 0) {
             throw new IllegalArgumentException();
         }
         return parkingLotNumber;
     }
 
-    public boolean releaseParking(String sCode, int parkingNumber) {
-        boolean released = true;
-        //ToDo check for a reservation with the same sCode and same parkingNumber and erase it
-        return released;
+    public boolean releaseParking(Reservation newReservation) {
+        if (getParking().getReservationsList().size() == 0) {
+            return false;
+        }
+        for (Reservation reservation : getParking().getReservationsList()) {
+            if (reservation.equals(newReservation)) {
+                getParking().getReservationsList().remove(reservation);
+                return true;
+            }
+        }
+        return false;
     }
 }

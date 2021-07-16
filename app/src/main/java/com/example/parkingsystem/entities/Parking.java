@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 public class Parking implements Parcelable {
+
     public static final Parcelable.Creator<Parking> CREATOR = new Parcelable.Creator<Parking>() {
         @Override
         public Parking createFromParcel(Parcel source) {

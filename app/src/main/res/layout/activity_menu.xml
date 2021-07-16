@@ -12,18 +12,18 @@
         android:backgroundTint="@color/light_sea_green"
         android:text="@string/menu_create_reservation"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@id/button_menu_delete_reservation"
+        app:layout_constraintBottom_toTopOf="@id/button_menu_release_reservation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_menu_delete_reservation"
+        android:id="@+id/button_menu_release_reservation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:backgroundTint="@color/light_sea_green"
-        android:text="@string/menu_delete_reservation"
+        android:backgroundTint="@color/yellow_green"
+        android:text="@string/menu_release_reservation"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@id/button_menu_release_system"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,13 +35,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:backgroundTint="@color/light_sea_green"
+        android:backgroundTint="@color/pale_violet_red"
         android:text="@string/menu_release_system"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@id/fragment_container_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_menu_delete_reservation" />
+        app:layout_constraintTop_toBottomOf="@id/button_menu_release_reservation" />
 
     <FrameLayout
         android:id="@+id/fragment_container_menu"

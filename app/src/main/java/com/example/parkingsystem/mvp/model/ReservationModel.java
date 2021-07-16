@@ -6,14 +6,13 @@ import com.example.parkingsystem.entities.Reservation;
 public class ReservationModel {
 
     private final Parking parking;
-    private int parkingNumber;
 
     public ReservationModel(Parking parking) {
         this.parking = parking;
     }
 
     public int setParkingLotNumber(String size) throws IllegalArgumentException {
-        this.parkingNumber = Integer.parseInt(size);
+        int parkingNumber = Integer.parseInt(size);
         if (parkingNumber == 0) {
             throw new IllegalArgumentException();
         }
@@ -24,6 +23,9 @@ public class ReservationModel {
         return this.parking.getParkingSize();
     }
 
+    public Parking getParking() {
+        return this.parking;
+    }
 
     public boolean addReservationToParking(Reservation reservation) {
         if (!isReservationOnTheList(reservation)) {
@@ -36,7 +38,10 @@ public class ReservationModel {
     private boolean isReservationOnTheList(Reservation newReservation) {
         for (Reservation reservation : parking.getReservationsList()) {
             if (newReservation.getParkingLot() == reservation.getParkingLot() &&
-                    newReservation.getStartDateTime() < reservation.getEndDateTime()) {
+                    (newReservation.getStartDateTime() <= reservation.getEndDateTime() &&
+                            newReservation.getEndDateTime() <= reservation.getEndDateTime()) &&
+                    (newReservation.getEndDateTime() >= reservation.getStartDateTime() &&
+                            newReservation.getStartDateTime() <= reservation.getStartDateTime())) {
                 return true;
             }
         }

@@ -16,7 +16,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="15dp"
             android:text="@string/release_instruction_security_code"
-            android:textColor="@color/black"
+            android:textColor="@android:color/black"
             android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@id/text_release_security_code"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,10 +32,10 @@
             android:layout_marginRight="15dp"
             android:inputType="textPassword"
             android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@id/text_release_instruction_enter_parking_lot"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_release_instruction_enter_security_code"
-            app:layout_constraintBottom_toTopOf="@id/text_release_instruction_enter_parking_lot"/>
+            app:layout_constraintTop_toBottomOf="@+id/text_release_instruction_enter_security_code" />
 
         <TextView
             android:id="@+id/text_release_instruction_enter_parking_lot"
@@ -45,7 +45,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="15dp"
             android:text="@string/release_instruction_parking_lot"
-            android:textColor="@color/black"
+            android:textColor="@android:color/black"
             android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@id/text_release_parking_lot"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,10 +61,10 @@
             android:layout_marginRight="15dp"
             android:inputType="number"
             android:maxLength="9"
+            app:layout_constraintBottom_toTopOf="@id/button_release_submit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_release_instruction_enter_parking_lot"
-            app:layout_constraintBottom_toTopOf="@id/button_release_submit"/>
+            app:layout_constraintTop_toBottomOf="@+id/text_release_instruction_enter_parking_lot" />
 
         <Button
             android:id="@+id/button_release_submit"

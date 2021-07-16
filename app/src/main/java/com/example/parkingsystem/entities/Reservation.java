@@ -1,9 +1,15 @@
 package com.example.parkingsystem.entities;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.RequiresApi;
+
+import java.util.Objects;
+
 public class Reservation implements Parcelable {
+
     public static final Creator<Reservation> CREATOR = new Creator<Reservation>() {
         @Override
         public Reservation createFromParcel(Parcel source) {
@@ -15,16 +21,17 @@ public class Reservation implements Parcelable {
             return new Reservation[size];
         }
     };
+
     private String securityCode;
     private int parkingLot;
     private long startDateTime;
     private long endDateTime;
 
-    public Reservation(String code, int number, long startDT, long endDT) {
+    public Reservation(String code, int number, long startDateTime, long endDateTime) {
         this.securityCode = code;
         this.parkingLot = number;
-        this.startDateTime = startDT;
-        this.endDateTime = endDT;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
     protected Reservation(Parcel in) {
@@ -34,8 +41,9 @@ public class Reservation implements Parcelable {
         this.parkingLot = in.readInt();
     }
 
-    public Reservation() {
-
+    public Reservation(String code, int parkingNumber) {
+        this.parkingLot = parkingNumber;
+        this.securityCode = code;
     }
 
     public String getSecurityCode() {
@@ -88,5 +96,20 @@ public class Reservation implements Parcelable {
         this.endDateTime = source.readLong();
         this.startDateTime = source.readLong();
         this.parkingLot = source.readInt();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return parkingLot == that.parkingLot &&
+                securityCode.equals(that.securityCode);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public int hashCode() {
+        return Objects.hash(securityCode, parkingLot);
     }
 }

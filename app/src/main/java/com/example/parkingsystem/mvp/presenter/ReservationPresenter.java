@@ -1,8 +1,8 @@
 package com.example.parkingsystem.mvp.presenter;
 
-import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.parkingsystem.entities.Parking;
 import com.example.parkingsystem.entities.Reservation;
 import com.example.parkingsystem.mvp.model.ReservationModel;
 import com.example.parkingsystem.mvp.view.FragmentReservationView;
@@ -27,14 +27,14 @@ public class ReservationPresenter {
         view.setEndDateTimeDialog();
     }
 
-    public void onReservationCreationButtonPressed() {
-        int parkingNumber = 0;
+    public boolean onReservationCreationButtonPressed() {
+        int parkingNumber;
         try {
             parkingNumber = model.setParkingLotNumber(view.getParkingLotNumberEntered());
         } catch (IllegalArgumentException exception) {
             Log.e(ParkingSizePresenter.class.getSimpleName(), exception.toString());
             view.showInvalidNumber();
-            return;
+            return false;
         }
         String securityCode = view.getSecurityCode();
         long startDateTime = view.getStartDateTime().getTime();
@@ -44,11 +44,13 @@ public class ReservationPresenter {
             Reservation reservation = new Reservation(securityCode, parkingNumber, startDateTime, endDateTime);
             if (model.addReservationToParking(reservation)) {
                 view.showReservationConfirmation();
-                view.goBackToMenu(reservation);
+                return true;
             } else {
                 view.showReservationNotAdded();
+                return false;
             }
         }
+        return false;
     }
 
     public boolean validateSecurityCode(String code) {
@@ -78,5 +80,9 @@ public class ReservationPresenter {
         }
         view.showEmptyDates();
         return false;
+    }
+
+    public Parking getReservationsOnTheParking() {
+        return model.getParking();
     }
 }

@@ -1,11 +1,13 @@
 package com.example.parkingsystem.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -20,8 +22,14 @@ public class ReservationFragment extends Fragment {
     public static final String PARKING_KEY = "PARKING";
     private FragmentReservationBinding binding;
     private ReservationPresenter presenter;
+    private ReservationDelegate delegate;
 
-    public ReservationFragment() {
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof ReservationDelegate) {
+            delegate = (ReservationDelegate) context;
+        }
     }
 
     @Override
@@ -29,10 +37,11 @@ public class ReservationFragment extends Fragment {
         binding = FragmentReservationBinding.inflate(inflater, container, false);
         binding.startInputDateAndTime.setInputType(InputType.TYPE_NULL);
         binding.endInputDateAndTime.setInputType(InputType.TYPE_NULL);
-        Parking parking = getArguments().getParcelable(PARKING_KEY);
-        presenter = new ReservationPresenter(new ReservationModel(parking), new FragmentReservationView(this, binding));
+        if (getArguments() != null) {
+            Parking parking = getArguments().getParcelable(PARKING_KEY);
+            presenter = new ReservationPresenter(new ReservationModel(parking), new FragmentReservationView(this, binding));
+        }
         setListeners();
-
         return binding.getRoot();
     }
 
@@ -40,7 +49,13 @@ public class ReservationFragment extends Fragment {
         binding.startInputDateAndTime.setOnClickListener(view -> presenter.selectStartDateAndTime());
         binding.endInputDateAndTime.setOnClickListener(view -> presenter.selectEndDateAndTime());
         binding.buttonReservationSubmit.setOnClickListener(view -> {
-            presenter.onReservationCreationButtonPressed();
+            if (presenter.onReservationCreationButtonPressed()) {
+                delegate.onReservationButtonPressed(presenter.getReservationsOnTheParking());
+            }
         });
+    }
+
+    public interface ReservationDelegate {
+        void onReservationButtonPressed(Parking parking);
     }
 }
