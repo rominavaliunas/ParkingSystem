@@ -41,7 +41,11 @@ public class ReservationModel {
                     (newReservation.getStartDateTime() <= reservation.getEndDateTime() &&
                             newReservation.getEndDateTime() <= reservation.getEndDateTime()) &&
                     (newReservation.getEndDateTime() >= reservation.getStartDateTime() &&
-                            newReservation.getStartDateTime() <= reservation.getStartDateTime())) {
+                            newReservation.getStartDateTime() <= reservation.getStartDateTime()) &&
+                    (newReservation.getStartDateTime() <= reservation.getEndDateTime() &&
+                            newReservation.getEndDateTime() >= reservation.getEndDateTime()) &&
+                    (newReservation.getStartDateTime() <= reservation.getStartDateTime() &&
+                            newReservation.getEndDateTime() >= reservation.getStartDateTime())) {
                 return true;
             }
         }

@@ -47,6 +47,36 @@ public class ParkingReservationModelTest {
     }
 
     @Test
+    public void addReservationToParking_secondReservationTakesPlaceBeforeExistingOne_isTrue() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 0);
+        Date startDate2ndReservation = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate2ndReservation = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date startDate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate = calendar.getTime();
+        Assert.assertTrue(model.addReservationToParking(new Reservation("sdj", 2, startDate.getTime(), endDate.getTime())));
+        Assert.assertTrue(model.addReservationToParking(new Reservation("sdj", 2, startDate2ndReservation.getTime(), endDate2ndReservation.getTime())));
+    }
+
+    @Test
+    public void addReservationToParking_secondReservationTakesPlaceAfterExistingOne_isTrue() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 0);
+        Date startDate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date startDate2ndReservation = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate2ndReservation = calendar.getTime();
+        Assert.assertTrue(model.addReservationToParking(new Reservation("sdj", 2, startDate.getTime(), endDate.getTime())));
+        Assert.assertTrue(model.addReservationToParking(new Reservation("sdj", 2, startDate2ndReservation.getTime(), endDate2ndReservation.getTime())));
+    }
+
+    @Test
     public void addReservationToParking_secondReservationWithSameArguments_isFalse() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
@@ -60,7 +90,7 @@ public class ParkingReservationModelTest {
     @Test
     public void addReservationToParking_secondReservationBeginsBeforeExistingOneEnds_isFalse() {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        calendar.add(Calendar.DAY_OF_YEAR, 0);
         Date startDate = calendar.getTime();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         Date startDate2ndReservation = calendar.getTime();
@@ -73,17 +103,12 @@ public class ParkingReservationModelTest {
     }
 
     @Test
-    public void addReservationToParking_secondReservationTakesPlaceBeforeExistingOneBegins_isFalse() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date startDate2ndReservation = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date endDate2ndReservation = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date startDate = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date endDate = calendar.getTime();
-        Assert.assertTrue(model.addReservationToParking(new Reservation("sdj", 2, startDate.getTime(), endDate.getTime())));
-        Assert.assertFalse(model.addReservationToParking(new Reservation("sdj", 2, startDate2ndReservation.getTime(), endDate2ndReservation.getTime())));
+    public void addReservationToParking_secondReservationFinishesInTheMiddleOfAnExistingOne_isFalse() {
+
+    }
+
+    @Test
+    public void addReservationToParking_secondReservationTakesPlaceInTheMiddleOfAnExistingOne_isFalse() {
+
     }
 }

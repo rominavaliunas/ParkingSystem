@@ -28,7 +28,7 @@ public class ReleasePresenter {
         String securityCode = view.getSecurityCode();
         if (validateSecurityCode(securityCode) && validateParkingLotNumber(parkingNumber)) {
             Reservation newReservation = new Reservation(securityCode, parkingNumber);
-            if (model.numberOfMatchesOfTheReservation(newReservation)>1){
+            if (model.numberOfMatchesOfTheReservation(newReservation) > 1) {
                 view.showBugMessage();
                 return false;
             }
@@ -43,7 +43,7 @@ public class ReleasePresenter {
         return false;
     }
 
-    private boolean validateParkingLotNumber(int parkingNumber) {
+    public boolean validateParkingLotNumber(int parkingNumber) {
         if (model.getSizeOfParking() >= parkingNumber) {
             return true;
         }
@@ -55,7 +55,7 @@ public class ReleasePresenter {
         return false;
     }
 
-    private boolean validateSecurityCode(String code) {
+    public boolean validateSecurityCode(String code) {
         if (!code.isEmpty() && code.length() < 10) {
             return true;
         }

@@ -38,7 +38,8 @@ public class ReleaseModel {
     }
 
     public boolean releaseParking(Reservation newReservation) {
-        if (getParking().getReservationsList().size() == 0 || numberOfMatchesOfTheReservation(newReservation) > 1) {
+        if (getParking().getReservationsList().size() == 0 ||
+                numberOfMatchesOfTheReservation(newReservation) > 1) {
             return false;
         }
         for (Reservation reservation : getParking().getReservationsList()) {
@@ -49,4 +50,5 @@ public class ReleaseModel {
         }
         return false;
     }
+    
 }
