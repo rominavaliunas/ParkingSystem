@@ -44,11 +44,12 @@ public class ReleasePresenter {
     }
 
     public boolean validateParkingLotNumber(int parkingNumber) {
-        if (model.getSizeOfParking() >= parkingNumber) {
-            return true;
-        }
         if (parkingNumber <= 0) {
             view.showNegativeOrZeroParkingNumber();
+            return false;
+        }
+        if (model.getSizeOfParking() >= parkingNumber) {
+            return true;
         } else {
             view.showInvalidParkingNumberForRelease();
         }

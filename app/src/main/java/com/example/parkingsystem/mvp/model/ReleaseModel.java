@@ -21,7 +21,7 @@ public class ReleaseModel {
 
     public int desiredParkingNumberForRelease(String size) throws IllegalArgumentException {
         int parkingLotNumber = Integer.parseInt(size);
-        if (parkingLotNumber == 0) {
+        if (parkingLotNumber <= 0) {
             throw new IllegalArgumentException();
         }
         return parkingLotNumber;

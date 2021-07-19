@@ -36,19 +36,20 @@ public class ReservationModel {
     }
 
     private boolean isReservationOnTheList(Reservation newReservation) {
+        if (parking.getReservationsList().size() == 0) {
+            return false;
+        }
         for (Reservation reservation : parking.getReservationsList()) {
             if (newReservation.getParkingLot() == reservation.getParkingLot() &&
-                    (newReservation.getStartDateTime() <= reservation.getEndDateTime() &&
-                            newReservation.getEndDateTime() <= reservation.getEndDateTime()) &&
-                    (newReservation.getEndDateTime() >= reservation.getStartDateTime() &&
-                            newReservation.getStartDateTime() <= reservation.getStartDateTime()) &&
-                    (newReservation.getStartDateTime() <= reservation.getEndDateTime() &&
-                            newReservation.getEndDateTime() >= reservation.getEndDateTime()) &&
-                    (newReservation.getStartDateTime() <= reservation.getStartDateTime() &&
-                            newReservation.getEndDateTime() >= reservation.getStartDateTime())) {
-                return true;
+                    //When new reservation begins after the reservation in place
+                    ((newReservation.getStartDateTime() >= reservation.getEndDateTime() ||
+                            //When new reservation begins before the reservation in place
+                            (newReservation.getEndDateTime() <= reservation.getStartDateTime())))) {
+                return false;
+            } else if (newReservation.getParkingLot() != reservation.getParkingLot()) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 }
