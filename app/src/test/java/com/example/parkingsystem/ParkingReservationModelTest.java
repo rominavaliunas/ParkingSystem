@@ -104,11 +104,31 @@ public class ParkingReservationModelTest {
 
     @Test
     public void addReservationToParking_secondReservationFinishesInTheMiddleOfAnExistingOne_isFalse() {
-
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 0);
+        Date startDate2ndReservation = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date startDate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate2ndReservation = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate = calendar.getTime();
+        Assert.assertTrue(model.addReservationToParking(new Reservation("sdj", 2, startDate.getTime(), endDate.getTime())));
+        Assert.assertFalse(model.addReservationToParking(new Reservation("sdj", 2, startDate2ndReservation.getTime(), endDate2ndReservation.getTime())));
     }
 
     @Test
     public void addReservationToParking_secondReservationTakesPlaceInTheMiddleOfAnExistingOne_isFalse() {
-
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 0);
+        Date startDate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date startDate2ndReservation = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate2ndReservation = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date endDate = calendar.getTime();
+        Assert.assertTrue(model.addReservationToParking(new Reservation("sdj", 2, startDate.getTime(), endDate.getTime())));
+        Assert.assertFalse(model.addReservationToParking(new Reservation("sdj", 2, startDate2ndReservation.getTime(), endDate2ndReservation.getTime())));
     }
 }
