@@ -35,7 +35,7 @@
             app:layout_constraintBottom_toTopOf="@id/text_release_instruction_enter_parking_lot"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_release_instruction_enter_security_code" />
+            app:layout_constraintTop_toBottomOf="@id/text_release_instruction_enter_security_code" />
 
         <TextView
             android:id="@+id/text_release_instruction_enter_parking_lot"
@@ -64,7 +64,7 @@
             app:layout_constraintBottom_toTopOf="@id/button_release_submit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_release_instruction_enter_parking_lot" />
+            app:layout_constraintTop_toBottomOf="@id/text_release_instruction_enter_parking_lot" />
 
         <Button
             android:id="@+id/button_release_submit"
@@ -79,6 +79,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_release_parking_lot" />
+            app:layout_constraintTop_toBottomOf="@id/text_release_parking_lot" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

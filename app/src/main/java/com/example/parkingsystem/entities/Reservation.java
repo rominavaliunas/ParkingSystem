@@ -1,10 +1,7 @@
 package com.example.parkingsystem.entities;
 
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import androidx.annotation.RequiresApi;
 
 import java.util.Objects;
 
@@ -107,7 +104,6 @@ public class Reservation implements Parcelable {
                 securityCode.equals(that.securityCode);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public int hashCode() {
         return Objects.hash(securityCode, parkingLot);

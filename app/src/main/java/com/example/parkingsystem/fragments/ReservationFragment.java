@@ -13,11 +13,16 @@ import androidx.fragment.app.Fragment;
 
 import com.example.parkingsystem.databinding.FragmentReservationBinding;
 import com.example.parkingsystem.entities.Parking;
+import com.example.parkingsystem.entities.Validator;
 import com.example.parkingsystem.mvp.model.ReservationModel;
 import com.example.parkingsystem.mvp.presenter.ReservationPresenter;
 import com.example.parkingsystem.mvp.view.FragmentReservationView;
 
 public class ReservationFragment extends Fragment {
+
+    public interface ReservationDelegate {
+        void onReservationButtonPressed(Parking parking);
+    }
 
     public static final String PARKING_KEY = "PARKING";
     private FragmentReservationBinding binding;
@@ -39,9 +44,9 @@ public class ReservationFragment extends Fragment {
         binding.endInputDateAndTime.setInputType(InputType.TYPE_NULL);
         if (getArguments() != null) {
             Parking parking = getArguments().getParcelable(PARKING_KEY);
-            presenter = new ReservationPresenter(new ReservationModel(parking), new FragmentReservationView(this, binding));
+            presenter = new ReservationPresenter(new ReservationModel(parking, new Validator()), new FragmentReservationView(this, binding));
+            setListeners();
         }
-        setListeners();
         return binding.getRoot();
     }
 
@@ -53,9 +58,5 @@ public class ReservationFragment extends Fragment {
                 delegate.onReservationButtonPressed(presenter.getReservationsOnTheParking());
             }
         });
-    }
-
-    public interface ReservationDelegate {
-        void onReservationButtonPressed(Parking parking);
     }
 }

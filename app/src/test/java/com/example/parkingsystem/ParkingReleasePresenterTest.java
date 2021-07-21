@@ -3,6 +3,9 @@ package com.example.parkingsystem;
 import android.util.Log;
 
 import com.example.parkingsystem.entities.Reservation;
+import com.example.parkingsystem.exceptions.ReleaseEmptyListException;
+import com.example.parkingsystem.exceptions.ReleaseMoreThanOneMatchException;
+import com.example.parkingsystem.exceptions.ReleaseNoMatchesException;
 import com.example.parkingsystem.mvp.model.ReleaseModel;
 import com.example.parkingsystem.mvp.presenter.ReleasePresenter;
 import com.example.parkingsystem.mvp.view.FragmentReleaseView;
@@ -14,11 +17,9 @@ import org.junit.Test;
 import org.mockito.MockedStatic;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -39,63 +40,77 @@ public class ParkingReleasePresenterTest {
     }
 
     @Test
-    public void onReleaseReservationButtonPressed_validData_ParkingReleased() {
+    public void onReleaseReservationButtonPressed_validData_ParkingReleased() throws ReleaseMoreThanOneMatchException, ReleaseNoMatchesException, ReleaseEmptyListException {
         ReleasePresenter spyPresenter = spy(presenter);
 
         when(view.getSecurityCode()).thenReturn("ABC");
         when(view.getLotNumberToBeReleased()).thenReturn("2");
         when(model.desiredParkingNumberForRelease("2")).thenReturn(2);
-
-        doReturn(true).when(spyPresenter).validateSecurityCode("ABC");
-        doReturn(true).when(spyPresenter).validateParkingLotNumber(2);
-
+        when(model.validateParkingLotNumber(2, model.getSizeOfParking())).thenReturn(true);
+        when(model.validateSecurityCode("ABC")).thenReturn(true);
         when(model.numberOfMatchesOfTheReservation(any(Reservation.class))).thenReturn(1);
-
-        when(model.releaseParking(new Reservation("ABC", 2))).thenReturn(true);
 
         Assert.assertTrue(spyPresenter.onReleaseReservationButtonPressed());
 
+        verify(model).releaseParking(new Reservation("ABC", 2));
         verify(view).showParkingReleasedConfirmation();
     }
 
     @Test
-    public void onReleaseReservationButtonPressed_invalidData_reservationDoesNotExist() {
+    public void onReleaseReservationButtonPressed_noMatches_catchException() throws ReleaseMoreThanOneMatchException, ReleaseNoMatchesException, ReleaseEmptyListException {
         ReleasePresenter spyPresenter = spy(presenter);
 
         when(view.getSecurityCode()).thenReturn("ABC");
         when(view.getLotNumberToBeReleased()).thenReturn("2");
         when(model.desiredParkingNumberForRelease("2")).thenReturn(2);
-
-        doReturn(true).when(spyPresenter).validateSecurityCode("ABC");
-        doReturn(true).when(spyPresenter).validateParkingLotNumber(2);
-
+        when(model.validateParkingLotNumber(2, model.getSizeOfParking())).thenReturn(true);
+        when(model.validateSecurityCode("ABC")).thenReturn(true);
         when(model.numberOfMatchesOfTheReservation(any(Reservation.class))).thenReturn(0);
 
-        when(model.releaseParking(new Reservation("ABC", 2))).thenReturn(false);
+        doThrow(new ReleaseNoMatchesException()).when(model).releaseParking(new Reservation("ABC", 2));
 
         Assert.assertFalse(spyPresenter.onReleaseReservationButtonPressed());
 
+        verify(model).releaseParking(new Reservation("ABC", 2));
         verify(view).showWeCannotFindYourParking();
     }
 
     @Test
-    public void onReleaseReservationButtonPressed_validData_reservationHasMoreThanOneMatch() {
+    public void onReleaseReservationButtonPressed_reservationHasMoreThanOneMatch_catchException() throws ReleaseMoreThanOneMatchException, ReleaseNoMatchesException, ReleaseEmptyListException {
         ReleasePresenter spyPresenter = spy(presenter);
 
         when(view.getSecurityCode()).thenReturn("ABC");
         when(view.getLotNumberToBeReleased()).thenReturn("2");
         when(model.desiredParkingNumberForRelease("2")).thenReturn(2);
-
-        doReturn(true).when(spyPresenter).validateSecurityCode("ABC");
-        doReturn(true).when(spyPresenter).validateParkingLotNumber(2);
-
+        when(model.validateSecurityCode("ABC")).thenReturn(true);
+        when(model.validateParkingLotNumber(2, model.getSizeOfParking())).thenReturn(true);
         when(model.numberOfMatchesOfTheReservation(any(Reservation.class))).thenReturn(3);
 
-        when(model.releaseParking(new Reservation("ABC", 2))).thenReturn(false);
+        doThrow(new ReleaseMoreThanOneMatchException()).when(model).releaseParking(new Reservation("ABC", 2));
 
         Assert.assertFalse(spyPresenter.onReleaseReservationButtonPressed());
 
+        verify(model).releaseParking(new Reservation("ABC", 2));
         verify(view).showBugMessage();
+    }
+
+    @Test
+    public void onReleaseReservationButtonPressed_noReservationInPlaceEmptyList_catchException() throws ReleaseMoreThanOneMatchException, ReleaseNoMatchesException, ReleaseEmptyListException {
+        ReleasePresenter spyPresenter = spy(presenter);
+
+        when(view.getSecurityCode()).thenReturn("ABC");
+        when(view.getLotNumberToBeReleased()).thenReturn("2");
+        when(model.desiredParkingNumberForRelease("2")).thenReturn(2);
+        when(model.validateSecurityCode("ABC")).thenReturn(true);
+        when(model.validateParkingLotNumber(2, model.getSizeOfParking())).thenReturn(true);
+        when(model.numberOfMatchesOfTheReservation(any(Reservation.class))).thenReturn(0);
+
+        doThrow(new ReleaseEmptyListException()).when(model).releaseParking(new Reservation("ABC", 2));
+
+        Assert.assertFalse(spyPresenter.onReleaseReservationButtonPressed());
+
+        verify(model).releaseParking(new Reservation("ABC", 2));
+        verify(view).showNoReservationInPlaceYet();
     }
 
     @Test
@@ -111,54 +126,6 @@ public class ParkingReleasePresenterTest {
         Assert.assertFalse(spyPresenter.onReleaseReservationButtonPressed());
 
         verify(view).showNegativeOrZeroParkingNumber();
-    }
-
-    @Test
-    public void validateParkingLotNumber_isTrue() {
-        when(model.getSizeOfParking()).thenReturn(20);
-        Assert.assertTrue(presenter.validateParkingLotNumber(10));
-        verify(view, never()).showNegativeOrZeroParkingNumber();
-        verify(view, never()).showInvalidParkingNumberForRelease();
-    }
-
-    @Test
-    public void validateParkingLotNumber_parkingLotToBeReleasedIsGreaterThanParkingSize_isFalse() {
-        when(model.getSizeOfParking()).thenReturn(20);
-        Assert.assertFalse(presenter.validateParkingLotNumber(30));
-        verify(view).showInvalidParkingNumberForRelease();
-        verify(view, never()).showNegativeOrZeroParkingNumber();
-    }
-
-    @Test
-    public void validateParkingLotNumber_parkingLotNumberToBeReleasedIsZeroOrNegative_isFalse() {
-        when(model.getSizeOfParking()).thenReturn(20);
-        Assert.assertFalse(presenter.validateParkingLotNumber(0));
-        verify(view).showNegativeOrZeroParkingNumber();
-        verify(view, never()).showInvalidParkingNumberForRelease();
-    }
-
-    @Test
-    public void validateSecurityCode_isTrue() {
-        when(view.getSecurityCode()).thenReturn("ADN123");
-
-        Assert.assertTrue(presenter.validateSecurityCode("ADN123"));
-        verify(view, never()).showCodeNotComplaint();
-    }
-
-    @Test
-    public void validateSecurityCode_codeIsEmpty_isFalse() {
-        when(view.getSecurityCode()).thenReturn("");
-
-        Assert.assertFalse(presenter.validateSecurityCode(""));
-        verify(view).showCodeNotComplaint();
-    }
-
-    @Test
-    public void validateSecurityCode_codeIsTooLarge_isFalse() {
-        when(view.getSecurityCode()).thenReturn("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-
-        Assert.assertFalse(presenter.validateSecurityCode("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
-        verify(view).showCodeNotComplaint();
     }
 
     @After

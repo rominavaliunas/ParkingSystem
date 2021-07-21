@@ -12,13 +12,18 @@ import androidx.fragment.app.Fragment;
 
 import com.example.parkingsystem.databinding.FragmentReleaseBinding;
 import com.example.parkingsystem.entities.Parking;
+import com.example.parkingsystem.entities.Validator;
 import com.example.parkingsystem.mvp.model.ReleaseModel;
 import com.example.parkingsystem.mvp.presenter.ReleasePresenter;
 import com.example.parkingsystem.mvp.view.FragmentReleaseView;
 
 public class ReleaseFragment extends Fragment {
 
-    public static final String PARKING_KEY = "PARKING";
+    public interface ReleaseDelegate {
+        void onReleaseButtonPressed(Parking parking);
+    }
+
+    public static final String PARKING_ARGUMENT = "PARKING";
     private FragmentReleaseBinding binding;
     private ReleasePresenter presenter;
     private ReleaseDelegate delegate;
@@ -34,10 +39,10 @@ public class ReleaseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentReleaseBinding.inflate(inflater, container, false);
         if (getArguments() != null) {
-            Parking parking = getArguments().getParcelable(PARKING_KEY);
-            presenter = new ReleasePresenter(new FragmentReleaseView(this, binding), new ReleaseModel(parking));
+            Parking parking = getArguments().getParcelable(PARKING_ARGUMENT);
+            presenter = new ReleasePresenter(new FragmentReleaseView(this, binding), new ReleaseModel(parking, new Validator()));
+            setListeners();
         }
-        setListeners();
 
         return binding.getRoot();
     }
@@ -48,9 +53,5 @@ public class ReleaseFragment extends Fragment {
                 delegate.onReleaseButtonPressed(presenter.getReservationsOnTheParking());
             }
         });
-    }
-
-    public interface ReleaseDelegate {
-        void onReleaseButtonPressed(Parking parking);
     }
 }

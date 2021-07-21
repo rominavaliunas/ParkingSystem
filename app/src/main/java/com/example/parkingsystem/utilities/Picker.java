@@ -1,6 +1,5 @@
 package com.example.parkingsystem.utilities;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.widget.DatePicker;

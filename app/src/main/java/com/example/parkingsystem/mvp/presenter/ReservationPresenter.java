@@ -40,32 +40,21 @@ public class ReservationPresenter {
         long startDateTime = view.getStartDateTime().getTime();
         long endDateTime = view.getEndDateTime().getTime();
 
-        if (validateSecurityCode(securityCode) && validateParkingLotNumber(parkingNumber) && validateDates(startDateTime, endDateTime)) {
+        if (!model.validateSecurityCode(securityCode)) {
+            view.showCodeNotComplaint();
+        }
+        if (!model.validateParkingLotNumber(parkingNumber, model.getParkingSize())) {
+            view.showLotNumberGreaterThanParkingSize();
+        }
+        if (model.validateSecurityCode(securityCode) && model.validateParkingLotNumber(parkingNumber, model.getParkingSize()) && validateDates(startDateTime, endDateTime)) {
             Reservation reservation = new Reservation(securityCode, parkingNumber, startDateTime, endDateTime);
             if (model.addReservationToParking(reservation)) {
                 view.showReservationConfirmation();
                 return true;
             } else {
                 view.showReservationNotAdded();
-                return false;
             }
         }
-        return false;
-    }
-
-    public boolean validateSecurityCode(String code) {
-        if (!code.isEmpty() && code.length() < 10) {
-            return true;
-        }
-        view.showCodeNotComplaint();
-        return false;
-    }
-
-    public boolean validateParkingLotNumber(int parkingNumber) {
-        if (model.getParkingSize() >= parkingNumber) {
-            return true;
-        }
-        view.showLotNumberGreaterThanParkingSize();
         return false;
     }
 

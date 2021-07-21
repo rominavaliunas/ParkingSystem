@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.example.parkingsystem.entities.Parking;
 import com.example.parkingsystem.entities.Reservation;
+import com.example.parkingsystem.exceptions.ReleaseEmptyListException;
+import com.example.parkingsystem.exceptions.ReleaseMoreThanOneMatchException;
+import com.example.parkingsystem.exceptions.ReleaseNoMatchesException;
 import com.example.parkingsystem.mvp.model.ReleaseModel;
 import com.example.parkingsystem.mvp.view.FragmentReleaseView;
 
@@ -21,46 +24,31 @@ public class ReleasePresenter {
         try {
             parkingNumber = model.desiredParkingNumberForRelease(view.getLotNumberToBeReleased());
         } catch (IllegalArgumentException exception) {
-            Log.e(ParkingSizePresenter.class.getSimpleName(), exception.toString());
+            Log.e(ParkingSizePresenter.class.getSimpleName(), "Invalid parking lot", exception);
             view.showNegativeOrZeroParkingNumber();
             return false;
         }
         String securityCode = view.getSecurityCode();
-        if (validateSecurityCode(securityCode) && validateParkingLotNumber(parkingNumber)) {
-            Reservation newReservation = new Reservation(securityCode, parkingNumber);
-            if (model.numberOfMatchesOfTheReservation(newReservation) > 1) {
-                view.showBugMessage();
-                return false;
-            }
-            if (model.releaseParking(newReservation)) {
-                view.showParkingReleasedConfirmation();
-                return true;
-            } else {
-                view.showWeCannotFindYourParking();
-                return false;
-            }
+        if (!model.validateSecurityCode(securityCode)) {
+            view.showCodeNotComplaint();
         }
-        return false;
-    }
-
-    public boolean validateParkingLotNumber(int parkingNumber) {
-        if (parkingNumber <= 0) {
-            view.showNegativeOrZeroParkingNumber();
-            return false;
-        }
-        if (model.getSizeOfParking() >= parkingNumber) {
-            return true;
-        } else {
+        if (!model.validateParkingLotNumber(parkingNumber, model.getSizeOfParking())) {
             view.showInvalidParkingNumberForRelease();
         }
-        return false;
-    }
-
-    public boolean validateSecurityCode(String code) {
-        if (!code.isEmpty() && code.length() < 10) {
-            return true;
+        if (model.validateSecurityCode(securityCode) && model.validateParkingLotNumber(parkingNumber, model.getSizeOfParking())) {
+            Reservation newReservation = new Reservation(securityCode, parkingNumber);
+            try {
+                model.releaseParking(newReservation);
+                view.showParkingReleasedConfirmation();
+                return true;
+            } catch (ReleaseMoreThanOneMatchException exception) {
+                view.showBugMessage();
+            } catch (ReleaseNoMatchesException exception) {
+                view.showWeCannotFindYourParking();
+            } catch (ReleaseEmptyListException exception) {
+                view.showNoReservationInPlaceYet();
+            }
         }
-        view.showCodeNotComplaint();
         return false;
     }
 

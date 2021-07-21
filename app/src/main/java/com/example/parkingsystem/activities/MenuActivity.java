@@ -29,7 +29,9 @@ public class MenuActivity extends AppCompatActivity implements ReservationFragme
         setContentView(binding.getRoot());
 
         int parkingSize = getIntent().getIntExtra(PARKING_SIZE_EXTRA, 0);
-
+        if(parkingSize == 0){
+            finish();
+        }
         presenter = new MenuPresenter(parkingSize);
 
         setListeners();

@@ -2,21 +2,27 @@ package com.example.parkingsystem.mvp.model;
 
 import com.example.parkingsystem.entities.Parking;
 import com.example.parkingsystem.entities.Reservation;
+import com.example.parkingsystem.entities.Validator;
+import com.example.parkingsystem.exceptions.ReleaseEmptyListException;
+import com.example.parkingsystem.exceptions.ReleaseMoreThanOneMatchException;
+import com.example.parkingsystem.exceptions.ReleaseNoMatchesException;
 
 public class ReleaseModel {
 
-    private final Parking parking;
+    private Parking parking;
+    private Validator validator;
 
-    public ReleaseModel(Parking releaseParking) {
-        this.parking = releaseParking;
+    public ReleaseModel(Parking releaseParking, Validator validator) {
+        this.validator = validator;
+        parking = releaseParking;
     }
 
     public Parking getParking() {
-        return this.parking;
+        return parking;
     }
 
     public int getSizeOfParking() {
-        return this.parking.getParkingSize();
+        return parking.getParkingSize();
     }
 
     public int desiredParkingNumberForRelease(String size) throws IllegalArgumentException {
@@ -37,18 +43,31 @@ public class ReleaseModel {
         return numberOfMatches;
     }
 
-    public boolean releaseParking(Reservation newReservation) {
-        if (getParking().getReservationsList().size() == 0 ||
-                numberOfMatchesOfTheReservation(newReservation) > 1) {
-            return false;
+    public void releaseParking(Reservation newReservation) throws ReleaseEmptyListException, ReleaseMoreThanOneMatchException, ReleaseNoMatchesException {
+        if (getParking().getReservationsList().size() == 0) {
+            throw new ReleaseEmptyListException();
         }
-        for (Reservation reservation : getParking().getReservationsList()) {
-            if (reservation.equals(newReservation)) {
-                getParking().getReservationsList().remove(reservation);
-                return true;
+        if (numberOfMatchesOfTheReservation(newReservation) > 1) {
+            throw new ReleaseMoreThanOneMatchException();
+        }
+        if (numberOfMatchesOfTheReservation(newReservation) == 1) {
+            for (Reservation reservation : getParking().getReservationsList()) {
+                if (reservation.equals(newReservation)) {
+                    getParking().getReservationsList().remove(reservation);
+                    return;
+                }
             }
+        } else {
+            throw new ReleaseNoMatchesException();
         }
-        return false;
+    }
+
+    public boolean validateParkingLotNumber(int parkingNumber, int sizeOfParking) {
+        return validator.validateParkingLotNumber(parkingNumber, sizeOfParking);
+    }
+
+    public boolean validateSecurityCode(String code) {
+        return validator.validateSecurityCode(code);
     }
     
 }

@@ -46,30 +46,30 @@ public class FragmentReservationView extends FragmentView {
     }
 
     public void showReservationConfirmation() {
-        showToast(getContext().getString(R.string.confirmation_reservation_created));
+        showToast(R.string.confirmation_reservation_created);
     }
 
     public void showInvalidNumber() {
-        showToast(getContext().getString(R.string.error_invalid_parking_lot_number_logged));
+        showToast(R.string.error_invalid_parking_lot_number_logged);
     }
 
     public void showCodeNotComplaint() {
-        showToast(getContext().getString(R.string.error_security_code_not_compliant));
+        showToast(R.string.error_security_code_not_compliant);
     }
 
     public void showLotNumberGreaterThanParkingSize() {
-        showToast(getContext().getString(R.string.error_lot_number_bigger_than_parking_size));
+        showToast(R.string.error_lot_number_bigger_than_parking_size);
     }
 
     public void showInconsistentDates() {
-        showToast(getContext().getString(R.string.error_inconsistent_dates));
+        showToast(R.string.error_inconsistent_dates);
     }
 
     public void showReservationNotAdded() {
-        showToast(getContext().getString(R.string.error_another_reservation_in_place));
+        showToast(R.string.error_another_reservation_in_place);
     }
 
     public void showEmptyDates() {
-        showToast(getContext().getString(R.string.error_one_or_both_dates_are_null));
+        showToast(R.string.error_one_or_both_dates_are_null);
     }
 }
