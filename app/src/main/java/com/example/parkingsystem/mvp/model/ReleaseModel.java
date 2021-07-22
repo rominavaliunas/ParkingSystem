@@ -51,12 +51,7 @@ public class ReleaseModel {
             throw new ReleaseMoreThanOneMatchException();
         }
         if (numberOfMatchesOfTheReservation(newReservation) == 1) {
-            for (Reservation reservation : getParking().getReservationsList()) {
-                if (reservation.equals(newReservation)) {
-                    getParking().getReservationsList().remove(reservation);
-                    return;
-                }
-            }
+            getParking().getReservationsList().remove(newReservation);
         } else {
             throw new ReleaseNoMatchesException();
         }
