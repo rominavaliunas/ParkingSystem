@@ -46,10 +46,10 @@ public class FragmentView {
     }
 
     @Nullable
-    public void showToast(String text) {
+    public void showToast(int resourceID) {
         Context context = getContext();
         if (context != null) {
-            Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, context.getString(resourceID), Toast.LENGTH_LONG).show();
         }
     }
 }

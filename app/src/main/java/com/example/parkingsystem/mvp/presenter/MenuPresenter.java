@@ -12,4 +12,8 @@ public class MenuPresenter {
     public Parking getParking() {
         return parking;
     }
+
+    public void setParking(Parking parking) {
+        this.parking = parking;
+    }
 }

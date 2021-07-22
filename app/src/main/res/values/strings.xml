@@ -8,7 +8,7 @@
     <string name="reservation_instruction_security_code">Please enter a security code</string>
     <string name="reservation_creation_submit">Create Reservation</string>
     <string name="reservation_instruction_parking_lot">Please enter a parking lot number</string>
-    <string name="menu_delete_reservation">Delete Reservation</string>
+    <string name="menu_release_reservation">Release Reservation</string>
     <string name="menu_release_system">Release System</string>
     <string name="menu_create_reservation">Create Reservation</string>
     <string name="hint_reservation_select_start_date_and_time">Set start date and time</string>
@@ -20,7 +20,14 @@
     <string name="error_security_code_not_compliant">Error your code is empty or larger than expected</string>
     <string name="error_lot_number_bigger_than_parking_size">Error lot number is bigger than parking size</string>
     <string name="error_inconsistent_dates">Error! Please check your dates</string>
-    <string name="error_invalid_parking_lot_number_logged">Error we do not have a lot numbered 0</string>
+    <string name="error_invalid_parking_lot_number_logged">Error we do not have a lot numbered 0 or less</string>
     <string name="error_another_reservation_in_place">Sorry, there is another reservation at that time!</string>
     <string name="error_one_or_both_dates_are_null">Please log a date</string>
+    <string name="release_instruction_security_code">Please enter your security code</string>
+    <string name="release_instruction_parking_lot">Please enter the number where you have parked in</string>
+    <string name="release_parking_submit">Release parking</string>
+    <string name="confirmation_parking_has_been_released">Your parking has been released</string>
+    <string name="error_we_cannot_find_your_reservation">There is no reservation that matches your search!</string>
+    <string name="error_more_than_one_reservation_matches">Error! More than one reservation matches your search, we cannot release them</string>
+    <string name="error_no_reservation_in_place_yet">No reservation has been made yet</string>
 </resources>

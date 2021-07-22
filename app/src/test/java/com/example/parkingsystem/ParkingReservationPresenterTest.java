@@ -58,8 +58,8 @@ public class ParkingReservationPresenterTest {
         when(view.getEndDateTime()).thenReturn(endDate);
         when(model.setParkingLotNumber("2")).thenReturn(2);
 
-        doReturn(true).when(spyPresenter).validateSecurityCode("A123");
-        doReturn(true).when(spyPresenter).validateParkingLotNumber(2);
+        when(model.validateSecurityCode("sd12")).thenReturn(true);
+        when(model.validateParkingLotNumber(2, 10)).thenReturn(true);
         doReturn(true).when(spyPresenter).validateDates(startDate.getTime(), endDate.getTime());
 
         when(model.addReservationToParking(any(Reservation.class))).thenReturn(true);
@@ -87,8 +87,9 @@ public class ParkingReservationPresenterTest {
         when(view.getEndDateTime()).thenReturn(endDate);
         when(model.setParkingLotNumber("2")).thenReturn(2);
 
-        doReturn(true).when(spyPresenter).validateSecurityCode("A123");
-        doReturn(true).when(spyPresenter).validateParkingLotNumber(2);
+        when(model.validateSecurityCode("sd12")).thenReturn(true);
+        when(model.validateParkingLotNumber(2, 10)).thenReturn(true);
+
         doReturn(true).when(spyPresenter).validateDates(startDate.getTime(), endDate.getTime());
 
         when(model.addReservationToParking(any(Reservation.class))).thenReturn(false);
@@ -223,56 +224,6 @@ public class ParkingReservationPresenterTest {
     public void validateDates_isNull() {
         Assert.assertFalse(presenter.validateDates(0, 0));
         verify(view).showEmptyDates();
-    }
-
-    @Test
-    public void validateSecurityCode_isTrue() {
-        String code = "ADN123";
-        when(view.getSecurityCode()).thenReturn(code);
-
-        Assert.assertTrue(presenter.validateSecurityCode(code));
-        verify(view, never()).showCodeNotComplaint();
-    }
-
-    @Test
-    public void validateSecurityCode_codeIsEmpty_isFalse() {
-        String code = "";
-        when(view.getSecurityCode()).thenReturn(code);
-        Assert.assertFalse(presenter.validateSecurityCode(code));
-        verify(view).showCodeNotComplaint();
-    }
-
-    @Test
-    public void validateSecurityCode_codesIsTooLarge_isFalse() {
-        //Given
-        String code = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456";
-        when(view.getSecurityCode()).thenReturn(code);
-
-        //Then
-        Assert.assertFalse(presenter.validateSecurityCode(code));
-        verify(view).showCodeNotComplaint();
-    }
-
-    @Test
-    public void validateParkingLotNumber_isTrue() {
-        //Given
-        when(model.setParkingLotNumber(view.getParkingLotNumberEntered())).thenReturn(10);
-        when(model.getParkingSize()).thenReturn(20);
-
-        Assert.assertTrue(presenter.validateParkingLotNumber(10));
-        verify(view, never()).showInvalidNumber();
-        verify(view, never()).showLotNumberGreaterThanParkingSize();
-    }
-
-    @Test
-    public void validateParkingLotNumber_parkingSizeIsSmallerThanLotNumberEntered_isFalse() {
-        //Given
-        when(model.setParkingLotNumber(view.getParkingLotNumberEntered())).thenReturn(5);
-        when(model.getParkingSize()).thenReturn(2);
-
-        //Then
-        Assert.assertFalse(presenter.validateParkingLotNumber(5));
-        verify(view).showLotNumberGreaterThanParkingSize();
     }
 
     @Test
